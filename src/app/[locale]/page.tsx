@@ -1,8 +1,9 @@
-import Image from "next/image";
-import { setRequestLocale } from "next-intl/server";
-import { useTranslations } from "next-intl";
 import { use } from "react";
+import { ArrowRight, BarChart3, Building2, MapPinned } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
+import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 
 export default function Home({
@@ -13,73 +14,91 @@ export default function Home({
   const { locale } = use(params);
   setRequestLocale(locale);
 
-  const t = useTranslations("HomePage");
+  const t = useTranslations("IntroPage");
+
+  const features = [
+    { icon: BarChart3, key: "industries" as const, href: "/industry-analysis" },
+    { icon: Building2, key: "cities" as const, href: null },
+    { icon: MapPinned, key: "network" as const, href: null },
+  ];
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <div className="flex w-full items-center justify-between">
-          <Image
-            className="dark:invert"
-            src="/next.svg"
-            alt="Next.js logo"
-            width={100}
-            height={20}
-            priority
-          />
+    <div className="min-h-full flex-1 bg-zinc-50 dark:bg-black">
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-16 px-6 py-12 sm:px-10 sm:py-16">
+        <header className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-foreground text-sm font-bold text-background">
+              M
+            </span>
+            <span className="text-lg font-semibold tracking-tight">
+              {t("brand")}
+            </span>
+          </div>
           <LocaleSwitcher />
-        </div>
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-start">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+        </header>
+
+        <section className="flex flex-col items-start gap-6 py-8 sm:py-16">
+          <span className="rounded-full border border-border bg-card px-3 py-1 text-sm font-medium text-muted-foreground">
+            {t("eyebrow")}
+          </span>
+          <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">
             {t("title")}
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            {t.rich("description", {
-              templates: (chunks) => (
-                <a
-                  href="https://vercel.com/templates?framework=next.js"
-                  className="font-medium text-zinc-950 dark:text-zinc-50"
-                >
-                  {chunks}
-                </a>
-              ),
-              learning: (chunks) => (
-                <a
-                  href="https://nextjs.org/learn"
-                  className="font-medium text-zinc-950 dark:text-zinc-50"
-                >
-                  {chunks}
-                </a>
-              ),
-            })}
+          <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+            {t("subtitle")}
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            {t("deploy")}
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t("docs")}
-          </a>
-        </div>
-      </main>
+          <div className="mt-2 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/industry-analysis"
+              className="flex h-12 items-center justify-center gap-2 rounded-full bg-foreground px-6 font-medium text-background transition-colors hover:opacity-90"
+            >
+              {t("cta")}
+              <ArrowRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden />
+            </Link>
+          </div>
+        </section>
+
+        <section className="grid gap-4 sm:grid-cols-3">
+          {features.map(({ icon: Icon, key, href }) => {
+            const card = (
+              <div className="flex h-full flex-col gap-3 rounded-3xl border border-border bg-card p-6 transition-colors hover:border-foreground/20">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted text-foreground">
+                  <Icon className="h-5 w-5" aria-hidden />
+                </span>
+                <h2 className="text-lg font-semibold tracking-tight">
+                  {t(`features.${key}.title`)}
+                </h2>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {t(`features.${key}.description`)}
+                </p>
+                {href && (
+                  <span className="mt-auto flex items-center gap-1.5 pt-2 text-sm font-medium text-foreground">
+                    {t("features.explore")}
+                    <ArrowRight
+                      className="h-3.5 w-3.5 rtl:-scale-x-100"
+                      aria-hidden
+                    />
+                  </span>
+                )}
+              </div>
+            );
+
+            return href ? (
+              <Link key={key} href={href} className="h-full">
+                {card}
+              </Link>
+            ) : (
+              <div key={key} className="h-full">
+                {card}
+              </div>
+            );
+          })}
+        </section>
+
+        <footer className="border-t border-border pt-6 text-sm text-muted-foreground">
+          {t("footer")}
+        </footer>
+      </div>
     </div>
   );
 }

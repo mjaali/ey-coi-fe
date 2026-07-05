@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "COI",
-    "description": "Common operational intelligence"
+    "description": "Center of Intelligence"
   },
   "LocaleSwitcher": {
     "label": "Change language",
@@ -13,5 +13,49 @@
     "description": "Looking for a starting point or more instructions? Head over to <templates>Templates</templates> or the <learning>Learning</learning> center.",
     "deploy": "Deploy Now",
     "docs": "Documentation"
+  },
+  "IntroPage": {
+    "brand": "MODON",
+    "eyebrow": "Center of Intelligence",
+    "title": "Operational intelligence for MODON's industrial cities",
+    "subtitle": "A unified view of the industrial base across MODON — factories, sectors, and infrastructure — turned into clear, decision-ready insight.",
+    "cta": "Explore industry analysis",
+    "features": {
+      "explore": "Open analysis",
+      "industries": {
+        "title": "Industry analysis",
+        "description": "See the leading and smallest manufacturing sectors ranked by factories, share, and city coverage."
+      },
+      "cities": {
+        "title": "Industrial cities",
+        "description": "Understand how activity is distributed across MODON's industrial cities and zones."
+      },
+      "network": {
+        "title": "Infrastructure",
+        "description": "Track the supporting utility and services network that keeps the industrial base running."
+      }
+    },
+    "footer": "MODON — Center of Intelligence"
+  },
+  "IndustriesPage": {
+    "brand": "MODON",
+    "eyebrow": "Industrial base overview",
+    "backToIntro": "Back to overview",
+    "title": "Industries in MODON",
+    "subtitle": "A snapshot of the industrial base across MODON cities, ranked by the number of factories in each manufacturing sector.",
+    "statFactories": "Factories",
+    "statSectors": "Industry sectors",
+    "statCities": "Industrial cities",
+    "statNetwork": "Utility network",
+    "unitKm": "km",
+    "topTitle": "Top 10 industries",
+    "topSubtitle": "Largest sectors by factory count",
+    "bottomTitle": "Least 3 industries",
+    "bottomSubtitle": "Smallest sectors by factory count",
+    "factoriesLabel": "factories",
+    "shareLabel": "of total",
+    "coverageLabel": "{cities} of {total} cities",
+    "coverageCaption": "city coverage",
+    "sourceNote": "Source: MODON GIS parcel layer (105) and utility network (77). Ranking covers standard manufacturing sectors."
   }
 }
