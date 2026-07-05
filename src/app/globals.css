@@ -121,7 +121,17 @@
 
 .app-surface {
   background: var(--app-bg);
-  transition: background-color 700ms ease;
+  transition:
+    background 700ms ease,
+    background-color 700ms ease,
+    color 700ms ease,
+    border-color 700ms ease;
+}
+
+html[data-theme="auto"] {
+  transition:
+    background-color 700ms ease,
+    color 700ms ease;
 }
 
 @layer base {
