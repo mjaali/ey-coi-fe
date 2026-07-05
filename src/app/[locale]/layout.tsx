@@ -3,6 +3,9 @@ import { Geist, Geist_Mono, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { AutoTheme } from "@/components/layout/auto-theme";
+import { ThemeProvider } from "@/components/theme-provider";
+import { THEME_MODES } from "@/config/theme";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -69,9 +72,19 @@ export default async function LocaleLayout({
       lang={locale}
       dir={isRtl ? "rtl" : "ltr"}
       className={`${sansFont.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+          themes={[...THEME_MODES]}
+        >
+          <AutoTheme />
+          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -3,6 +3,7 @@ import { ArrowLeft, MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import {
@@ -43,7 +44,7 @@ export default function IndustryAnalysis({
   ];
 
   return (
-    <div className="min-h-full flex-1 bg-zinc-50 dark:bg-black">
+    <div className="app-surface min-h-full flex-1">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-12 px-6 py-12 sm:px-10 sm:py-16">
         <header className="flex items-center justify-between">
           <Link
@@ -57,7 +58,10 @@ export default function IndustryAnalysis({
               {t("brand")}
             </span>
           </Link>
-          <LocaleSwitcher />
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <LocaleSwitcher />
+          </div>
         </header>
 
         <section className="flex flex-col gap-4">

@@ -8,6 +8,13 @@
     "en": "English",
     "ar": "العربية"
   },
+  "ThemeToggle": {
+    "label": "تغيير المظهر",
+    "light": "فاتح",
+    "dark": "داكن",
+    "system": "النظام",
+    "auto": "تلقائي (حسب وقت اليوم)"
+  },
   "HomePage": {
     "title": "للبدء، قم بتعديل ملف page.tsx.",
     "description": "هل تبحث عن نقطة انطلاق أو المزيد من الإرشادات؟ توجّه إلى <templates>القوالب</templates> أو مركز <learning>التعلّم</learning>.",

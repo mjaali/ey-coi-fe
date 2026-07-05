@@ -3,6 +3,7 @@ import { ArrowRight, BarChart3, Building2, MapPinned } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 
@@ -23,7 +24,7 @@ export default function Home({
   ];
 
   return (
-    <div className="min-h-full flex-1 bg-zinc-50 dark:bg-black">
+    <div className="app-surface min-h-full flex-1">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-16 px-6 py-12 sm:px-10 sm:py-16">
         <header className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
@@ -34,7 +35,10 @@ export default function Home({
               {t("brand")}
             </span>
           </div>
-          <LocaleSwitcher />
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <LocaleSwitcher />
+          </div>
         </header>
 
         <section className="flex flex-col items-start gap-6 py-8 sm:py-16">
