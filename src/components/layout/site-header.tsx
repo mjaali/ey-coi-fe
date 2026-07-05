@@ -1,3 +1,4 @@
+import modonLogo from "@/assets/ModonLogo.svg";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { Link } from "@/i18n/navigation";
@@ -9,12 +10,13 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ brand, linkHome = false }: SiteHeaderProps) {
   const brandMark = (
-    <>
-      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-foreground text-sm font-bold text-background">
-        M
-      </span>
-      <span className="text-lg font-semibold tracking-tight">{brand}</span>
-    </>
+    <img
+      src={modonLogo.src}
+      alt={brand}
+      width={132}
+      height={58}
+      className="h-8 w-auto"
+    />
   );
 
   return (
