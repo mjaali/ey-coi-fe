@@ -64,5 +64,18 @@
     "coverageLabel": "{cities} of {total} cities",
     "coverageCaption": "city coverage",
     "sourceNote": "Source: MODON GIS parcel layer (105) and utility network (77). Ranking covers standard manufacturing sectors."
+  },
+  "MapPage": {
+    "brand": "MODON",
+    "backToIntro": "Back to overview",
+    "title": "Industrial cities map",
+    "subtitle": "Explore MODON's industrial cities across the Kingdom — click a marker to see factory counts at each location.",
+    "factoriesLabel": "factories",
+    "statCities": "Industrial cities",
+    "statFactories": "Factories",
+    "statNetwork": "Utility network",
+    "unitKm": "km",
+    "tokenMissing": "Add NEXT_PUBLIC_MAPBOX_TOKEN to .env.local to enable the map.",
+    "sourceNote": "City locations are approximate. Factory counts shown on markers are illustrative until live GIS data is connected."
   }
 }

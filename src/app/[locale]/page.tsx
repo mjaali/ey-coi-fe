@@ -19,7 +19,7 @@ export default function Home({
 
   const features = [
     { icon: BarChart3, key: "industries" as const, href: "/industry-analysis" },
-    { icon: Building2, key: "cities" as const, href: null },
+    { icon: Building2, key: "cities" as const, href: "/map" },
     { icon: MapPinned, key: "network" as const, href: null },
   ];
 
