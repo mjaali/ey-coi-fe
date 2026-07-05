@@ -119,15 +119,6 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-.app-surface {
-  background: var(--app-bg);
-  transition:
-    background 700ms ease,
-    background-color 700ms ease,
-    color 700ms ease,
-    border-color 700ms ease;
-}
-
 html[data-theme="auto"] {
   transition:
     background-color 700ms ease,
@@ -138,10 +129,16 @@ html[data-theme="auto"] {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
+    background: var(--app-bg);
+    transition:
+      background 700ms ease,
+      background-color 700ms ease,
+      color 700ms ease,
+      border-color 700ms ease;
+  }
+  body {
+    @apply text-foreground;
   }
 }

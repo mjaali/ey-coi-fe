@@ -74,7 +74,7 @@ export default async function LocaleLayout({
       className={`${sansFont.variable} ${geistMono.variable} min-h-dvh antialiased`}
       suppressHydrationWarning
     >
-      <body className="app-surface flex min-h-dvh flex-col">
+      <body className="flex min-h-dvh flex-col">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
