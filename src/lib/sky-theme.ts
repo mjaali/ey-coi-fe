@@ -10,6 +10,7 @@ const INK: Rgb = [18, 18, 28];
 
 export const SKY_THEME_VARS = [
   "--app-bg",
+  "--app-bg-solid",
   "--background",
   "--foreground",
   "--card",
@@ -127,6 +128,7 @@ export function skyThemeVariables({
 
   return {
     "--app-bg": gradient,
+    "--app-bg-solid": rgb(background),
     "--background": rgb(background),
     "--foreground": rgb(foreground),
     "--card": rgb(card),

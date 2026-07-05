@@ -74,6 +74,7 @@
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
   --app-bg: #fafafa;
+  --app-bg-solid: #fafafa;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -109,6 +110,7 @@
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --app-bg: #000000;
+  --app-bg-solid: #000000;
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -125,20 +127,32 @@ html[data-theme="auto"] {
     color 700ms ease;
 }
 
+/* Solid color for Safari/Chrome overscroll; gradients don't extend into rubber-band. */
+html {
+  min-height: 100%;
+  background-color: var(--app-bg-solid);
+}
+
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--app-bg);
+  pointer-events: none;
+  transition:
+    background 700ms ease,
+    background-color 700ms ease;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   html {
     @apply font-sans;
-    background: var(--app-bg);
-    transition:
-      background 700ms ease,
-      background-color 700ms ease,
-      color 700ms ease,
-      border-color 700ms ease;
   }
   body {
-    @apply text-foreground;
+    @apply min-h-dvh bg-transparent text-foreground;
   }
 }

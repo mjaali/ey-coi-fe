@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AutoTheme } from "@/components/layout/auto-theme";
+import { ThemeChrome } from "@/components/layout/theme-chrome";
 import { ThemeProvider } from "@/components/theme-provider";
 import { THEME_MODES } from "@/config/theme";
 import { routing } from "@/i18n/routing";
@@ -29,6 +30,13 @@ const arabicSans = IBM_Plex_Sans_Arabic({
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+};
 
 export async function generateMetadata({
   params,
@@ -83,6 +91,7 @@ export default async function LocaleLayout({
           themes={[...THEME_MODES]}
         >
           <div className="flex min-h-0 flex-1 flex-col">
+            <ThemeChrome />
             <AutoTheme />
             <NextIntlClientProvider>{children}</NextIntlClientProvider>
           </div>
