@@ -1,0 +1,17 @@
+{
+  "Metadata": {
+    "title": "COI",
+    "description": "الاستخبارات العملياتية المشتركة"
+  },
+  "LocaleSwitcher": {
+    "label": "تغيير اللغة",
+    "en": "English",
+    "ar": "العربية"
+  },
+  "HomePage": {
+    "title": "للبدء، قم بتعديل ملف page.tsx.",
+    "description": "هل تبحث عن نقطة انطلاق أو المزيد من الإرشادات؟ توجّه إلى <templates>القوالب</templates> أو مركز <learning>التعلّم</learning>.",
+    "deploy": "انشر الآن",
+    "docs": "التوثيق"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "Metadata": {
+    "title": "COI",
+    "description": "Common operational intelligence"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "en": "English",
+    "ar": "العربية"
+  },
+  "HomePage": {
+    "title": "To get started, edit the page.tsx file.",
+    "description": "Looking for a starting point or more instructions? Head over to <templates>Templates</templates> or the <learning>Learning</learning> center.",
+    "deploy": "Deploy Now",
+    "docs": "Documentation"
+  }
+}
