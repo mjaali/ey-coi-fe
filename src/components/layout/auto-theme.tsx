@@ -3,69 +3,52 @@
 import { useEffect } from "react";
 import { useTheme } from "next-themes";
 
-import {
-  SUNRISE_START,
-  SUNRISE_END,
-  SUNSET_START,
-  SUNSET_END,
-} from "@/config/theme";
-
-type RGB = [number, number, number];
-
-const DUSK_STOPS: { p: number; top: RGB; mid: RGB; bottom: RGB }[] = [
-  { p: 0, top: [207, 227, 245], mid: [246, 217, 184], bottom: [249, 201, 163] },
-  { p: 0.5, top: [246, 161, 90], mid: [240, 97, 109], bottom: [176, 70, 138] },
-  { p: 1, top: [36, 27, 58], mid: [26, 23, 48], bottom: [7, 7, 15] },
-];
+import { SKY_STOPS, type Rgb, type SkyStop } from "@/config/theme";
 
 function lerp(a: number, b: number, t: number) {
   return Math.round(a + (b - a) * t);
 }
 
-function lerpRgb(a: RGB, b: RGB, t: number): RGB {
+function lerpRgb(a: Rgb, b: Rgb, t: number): Rgb {
   return [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
 }
 
-function rgb([r, g, b]: RGB) {
+function rgb([r, g, b]: Rgb) {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
-function duskGradient(p: number): string {
-  const clamped = Math.min(1, Math.max(0, p));
-  let lower = DUSK_STOPS[0];
-  let upper = DUSK_STOPS[DUSK_STOPS.length - 1];
-  for (let i = 0; i < DUSK_STOPS.length - 1; i++) {
-    if (clamped >= DUSK_STOPS[i].p && clamped <= DUSK_STOPS[i + 1].p) {
-      lower = DUSK_STOPS[i];
-      upper = DUSK_STOPS[i + 1];
-      break;
+
+function segmentFor(hour: number): { lower: SkyStop; upper: SkyStop; t: number } {
+  for (let i = 0; i < SKY_STOPS.length - 1; i++) {
+    const lower = SKY_STOPS[i];
+    const upper = SKY_STOPS[i + 1];
+    if (hour >= lower.hour && hour <= upper.hour) {
+      const span = upper.hour - lower.hour || 1;
+      return { lower, upper, t: (hour - lower.hour) / span };
     }
   }
-  const span = upper.p - lower.p || 1;
-  const t = (clamped - lower.p) / span;
+  const lower = SKY_STOPS[SKY_STOPS.length - 2];
+  const upper = SKY_STOPS[SKY_STOPS.length - 1];
+  return { lower, upper, t: 1 };
+}
+
+type Sky = { dark: boolean; gradient: string };
+
+export function skyForDate(date = new Date()): Sky {
+  const hour =
+    date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600;
+  const { lower, upper, t } = segmentFor(hour);
+
   const top = lerpRgb(lower.top, upper.top, t);
   const mid = lerpRgb(lower.mid, upper.mid, t);
   const bottom = lerpRgb(lower.bottom, upper.bottom, t);
-  return `linear-gradient(180deg, ${rgb(top)} 0%, ${rgb(mid)} 52%, ${rgb(bottom)} 100%)`;
-}
 
-type Resolved = { dark: boolean; gradient: string | null };
-
-function resolveForNow(date = new Date()): Resolved {
-  const h = date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600;
-
-  if (h >= SUNSET_START && h < SUNSET_END) {
-    const p = (h - SUNSET_START) / (SUNSET_END - SUNSET_START);
-    return { dark: p >= 0.5, gradient: duskGradient(p) };
-  }
-
-  if (h >= SUNRISE_START && h < SUNRISE_END) {
-    const p = (h - SUNRISE_START) / (SUNRISE_END - SUNRISE_START); // 0 night -> 1 day
-    return { dark: p < 0.5, gradient: duskGradient(1 - p) };
-  }
-
-  const isDay = h >= SUNRISE_END && h < SUNSET_START;
-  return { dark: !isDay, gradient: null };
+  return {
+    dark: t < 0.5 ? lower.dark : upper.dark,
+    gradient: `linear-gradient(180deg, ${rgb(top)} 0%, ${rgb(mid)} 52%, ${rgb(
+      bottom
+    )} 100%)`,
+  };
 }
 
 export function AutoTheme() {
@@ -80,25 +63,21 @@ export function AutoTheme() {
     }
 
     const apply = () => {
-      const { dark, gradient } = resolveForNow();
+      const { dark, gradient } = skyForDate();
       root.classList.toggle("dark", dark);
-      if (gradient) {
-        root.style.setProperty("--app-bg", gradient);
-      } else {
-        root.style.removeProperty("--app-bg");
-      }
+      root.style.setProperty("--app-bg", gradient);
     };
 
     apply();
-    const id = window.setInterval(apply, 60_000);
-    const onFocus = () => apply();
-    window.addEventListener("focus", onFocus);
-    document.addEventListener("visibilitychange", onFocus);
+    const interval = window.setInterval(apply, 60_000);
+    const onActive = () => apply();
+    window.addEventListener("focus", onActive);
+    document.addEventListener("visibilitychange", onActive);
 
     return () => {
-      window.clearInterval(id);
-      window.removeEventListener("focus", onFocus);
-      document.removeEventListener("visibilitychange", onFocus);
+      window.clearInterval(interval);
+      window.removeEventListener("focus", onActive);
+      document.removeEventListener("visibilitychange", onActive);
       root.style.removeProperty("--app-bg");
     };
   }, [theme]);
