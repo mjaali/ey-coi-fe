@@ -1,10 +1,12 @@
 import { use } from "react";
-import { ArrowLeft, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
-import { LocaleSwitcher } from "@/components/layout/locale-switcher";
-import { ThemeToggle } from "@/components/layout/theme-toggle";
-import { Link } from "@/i18n/navigation";
+import { PageFooter } from "@/components/layout/page-footer";
+import { PageHero } from "@/components/layout/page-hero";
+import { PageShell } from "@/components/layout/page-shell";
+import { SiteHeader } from "@/components/layout/site-header";
+import { StatCard } from "@/components/layout/stat-card";
 import type { Locale } from "@/i18n/routing";
 import {
   industrySummary as summary,
@@ -44,117 +46,77 @@ export default function IndustryAnalysis({
   ];
 
   return (
-    <div className="app-surface min-h-full flex-1">
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-12 px-6 py-12 sm:px-10 sm:py-16">
-        <header className="flex items-center justify-between">
-          <Link
-            href="/"
-            className="flex items-center gap-2.5 transition-opacity hover:opacity-80"
-          >
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-foreground text-sm font-bold text-background">
-              M
-            </span>
-            <span className="text-lg font-semibold tracking-tight">
-              {t("brand")}
-            </span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <LocaleSwitcher />
-          </div>
-        </header>
+    <PageShell>
+      <SiteHeader brand={t("brand")} linkHome />
 
-        <section className="flex flex-col gap-4">
-          <Link
-            href="/"
-            className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4 shrink-0 rtl:-scale-x-100" aria-hidden />
-            {t("backToIntro")}
-          </Link>
-          <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            {t("title")}
-          </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            {t("subtitle")}
-          </p>
-        </section>
+      <PageHero
+        backLabel={t("backToIntro")}
+        title={t("title")}
+        subtitle={t("subtitle")}
+      />
 
-        <section className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-2xl border border-border bg-card p-5"
-            >
-              <div className="text-2xl font-semibold tracking-tight sm:text-3xl">
-                {stat.value}
-              </div>
-              <div className="mt-1 text-sm text-muted-foreground">
-                {stat.label}
-              </div>
-            </div>
+      <section className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+        {stats.map((stat) => (
+          <StatCard key={stat.label} label={stat.label} value={stat.value} />
+        ))}
+      </section>
+
+      <section className="grid gap-6 lg:grid-cols-2">
+        <RankPanel
+          title={t("topTitle")}
+          subtitle={t("topSubtitle")}
+          accent="top"
+        >
+          {summary.top.map((industry, i) => (
+            <IndustryRow
+              key={industry.code}
+              rank={i + 1}
+              label={name(industry)}
+              count={nf.format(industry.count)}
+              share={pf.format(industry.share)}
+              width={(industry.share / maxShare) * 100}
+              coverage={t("coverageLabel", {
+                cities: nf.format(industry.cities),
+                total: nf.format(totalCities),
+              })}
+              coverageCaption={t("coverageCaption")}
+              coverageWidth={industry.coverage * 100}
+              factoriesLabel={t("factoriesLabel")}
+              shareLabel={t("shareLabel")}
+              accent="top"
+            />
           ))}
-        </section>
+        </RankPanel>
 
-        <section className="grid gap-6 lg:grid-cols-2">
-          <RankPanel
-            title={t("topTitle")}
-            subtitle={t("topSubtitle")}
-            accent="top"
-          >
-            {summary.top.map((industry, i) => (
-              <IndustryRow
-                key={industry.code}
-                rank={i + 1}
-                label={name(industry)}
-                count={nf.format(industry.count)}
-                share={pf.format(industry.share)}
-                width={(industry.share / maxShare) * 100}
-                coverage={t("coverageLabel", {
-                  cities: nf.format(industry.cities),
-                  total: nf.format(totalCities),
-                })}
-                coverageCaption={t("coverageCaption")}
-                coverageWidth={industry.coverage * 100}
-                factoriesLabel={t("factoriesLabel")}
-                shareLabel={t("shareLabel")}
-                accent="top"
-              />
-            ))}
-          </RankPanel>
+        <RankPanel
+          title={t("bottomTitle")}
+          subtitle={t("bottomSubtitle")}
+          accent="bottom"
+        >
+          {summary.bottom.map((industry, i) => (
+            <IndustryRow
+              key={industry.code}
+              rank={i + 1}
+              label={name(industry)}
+              count={nf.format(industry.count)}
+              share={pf.format(industry.share)}
+              width={(industry.share / maxShare) * 100}
+              coverage={t("coverageLabel", {
+                cities: nf.format(industry.cities),
+                total: nf.format(totalCities),
+              })}
+              coverageCaption={t("coverageCaption")}
+              coverageWidth={industry.coverage * 100}
+              factoriesLabel={t("factoriesLabel")}
+              shareLabel={t("shareLabel")}
+              accent="bottom"
+            />
+          ))}
+        </RankPanel>
+      </section>
 
-          <RankPanel
-            title={t("bottomTitle")}
-            subtitle={t("bottomSubtitle")}
-            accent="bottom"
-          >
-            {summary.bottom.map((industry, i) => (
-              <IndustryRow
-                key={industry.code}
-                rank={i + 1}
-                label={name(industry)}
-                count={nf.format(industry.count)}
-                share={pf.format(industry.share)}
-                width={(industry.share / maxShare) * 100}
-                coverage={t("coverageLabel", {
-                  cities: nf.format(industry.cities),
-                  total: nf.format(totalCities),
-                })}
-                coverageCaption={t("coverageCaption")}
-                coverageWidth={industry.coverage * 100}
-                factoriesLabel={t("factoriesLabel")}
-                shareLabel={t("shareLabel")}
-                accent="bottom"
-              />
-            ))}
-          </RankPanel>
-        </section>
-
-        <footer className="border-t border-border pt-6 text-sm text-muted-foreground">
-          {t("sourceNote")}
-        </footer>
-      </div>
-    </div>
+      <PageFooter>{t("sourceNote")}</PageFooter>
+    </PageShell>
   );
 }
 

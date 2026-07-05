@@ -71,10 +71,10 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={isRtl ? "rtl" : "ltr"}
-      className={`${sansFont.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${sansFont.variable} ${geistMono.variable} min-h-dvh antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="app-surface flex min-h-dvh flex-col">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -82,8 +82,10 @@ export default async function LocaleLayout({
           disableTransitionOnChange
           themes={[...THEME_MODES]}
         >
-          <AutoTheme />
-          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+          <div className="flex min-h-0 flex-1 flex-col">
+            <AutoTheme />
+            <NextIntlClientProvider>{children}</NextIntlClientProvider>
+          </div>
         </ThemeProvider>
       </body>
     </html>
