@@ -3,7 +3,12 @@
 import { useEffect } from "react";
 import { useTheme } from "next-themes";
 
-import { SKY_STOPS, type Rgb, type SkyStop } from "@/config/theme";
+import {
+  resolveAutoThemeHour,
+  SKY_STOPS,
+  type Rgb,
+  type SkyStop,
+} from "@/config/theme";
 
 function lerp(a: number, b: number, t: number) {
   return Math.round(a + (b - a) * t);
@@ -35,9 +40,7 @@ function segmentFor(hour: number): { lower: SkyStop; upper: SkyStop; t: number }
 type Sky = { dark: boolean; gradient: string };
 
 export function skyForDate(date = new Date()): Sky {
-  const hour =
-    date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600;
-  const { lower, upper, t } = segmentFor(hour);
+  const { lower, upper, t } = segmentFor(resolveAutoThemeHour(date));
 
   const top = lerpRgb(lower.top, upper.top, t);
   const mid = lerpRgb(lower.mid, upper.mid, t);
