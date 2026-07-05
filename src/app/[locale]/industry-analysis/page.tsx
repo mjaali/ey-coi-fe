@@ -7,6 +7,7 @@ import { PageHero } from "@/components/layout/page-hero";
 import { PageShell } from "@/components/layout/page-shell";
 import { SiteHeader } from "@/components/layout/site-header";
 import { StatCard } from "@/components/layout/stat-card";
+import { IndustrialMap } from "@/components/map/industrial-map";
 import type { Locale } from "@/i18n/routing";
 import {
   industrySummary as summary,
@@ -26,6 +27,7 @@ export default function IndustryAnalysis({
   setRequestLocale(locale);
 
   const t = useTranslations("IndustriesPage");
+  const tMap = useTranslations("MapPage");
   const nf = new Intl.NumberFormat(locale === "ar" ? "ar" : "en-US");
   const pf = new Intl.NumberFormat(locale === "ar" ? "ar" : "en-US", {
     style: "percent",
@@ -60,6 +62,13 @@ export default function IndustryAnalysis({
           <StatCard key={stat.label} label={stat.label} value={stat.value} />
         ))}
       </section>
+
+      <IndustrialMap
+        locale={locale}
+        className="h-[min(70vh,560px)] w-full"
+        factoriesLabel={t("factoriesLabel")}
+        tokenMissingMessage={tMap("tokenMissing")}
+      />
 
       <section className="grid gap-6 lg:grid-cols-2">
         <RankPanel
