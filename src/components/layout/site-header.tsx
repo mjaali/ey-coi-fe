@@ -20,7 +20,7 @@ export function SiteHeader({ brand, linkHome = false }: SiteHeaderProps) {
   );
 
   return (
-    <header className="flex items-center justify-between">
+    <header className="sticky top-0 z-30 -mx-6 flex items-center justify-between bg-[color-mix(in_oklab,var(--app-bg-solid)_88%,transparent)] px-6 py-3 backdrop-blur-md sm:-mx-10 sm:px-10">
       {linkHome ? (
         <Link
           href="/"

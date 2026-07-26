@@ -125,7 +125,7 @@ export function DemandDashboard({
 
   return (
     <div className="grid items-start gap-8 lg:grid-cols-[minmax(15rem,17.5rem)_minmax(0,1fr)]">
-      <aside className="relative z-20 lg:sticky lg:top-6 lg:self-start">
+      <aside className="relative z-20 lg:sticky lg:top-16 lg:self-start">
         <FilterBar
           locale={locale}
           filters={filters}
