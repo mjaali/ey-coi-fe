@@ -12,7 +12,11 @@ export function LocaleSwitcher() {
   const pathname = usePathname();
 
   function switchTo(nextLocale: Locale) {
-    router.replace(pathname, { locale: nextLocale });
+    const query = window.location.search.slice(1);
+    router.replace(query ? `${pathname}?${query}` : pathname, {
+      locale: nextLocale,
+      scroll: false,
+    });
   }
 
   return (
