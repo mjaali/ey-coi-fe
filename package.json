@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "ingest:customs": "node scripts/ingest-customs.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
+    "better-sqlite3": "^13.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.23.0",
@@ -26,11 +28,13 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "stream-json": "^3.5.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

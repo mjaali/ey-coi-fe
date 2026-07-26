@@ -1,5 +1,11 @@
 import { use } from "react";
-import { ArrowRight, BarChart3, Building2, MapPinned } from "lucide-react";
+import {
+  ArrowRight,
+  BarChart3,
+  Building2,
+  MapPinned,
+  TrendingUp,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { PageFooter } from "@/components/layout/page-footer";
@@ -22,6 +28,7 @@ export default function Home({
     { icon: BarChart3, key: "industries" as const, href: "/industry-analysis" },
     { icon: Building2, key: "cities" as const, href: "/map" },
     { icon: MapPinned, key: "network" as const, href: null },
+    { icon: TrendingUp, key: "demand" as const, href: "/demand-analysis" },
   ];
 
   return (
@@ -49,7 +56,7 @@ export default function Home({
         </div>
       </section>
 
-      <section className="grid gap-4 sm:grid-cols-3">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {features.map(({ icon: Icon, key, href }) => {
           const card = (
             <div className="flex h-full flex-col gap-3 rounded-3xl border border-border bg-card p-6 transition-colors hover:border-foreground/20">

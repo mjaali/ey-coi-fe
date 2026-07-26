@@ -40,3 +40,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large customs source + local SQLite (ingest with npm run ingest:customs)
+customs-declarations.json
+customs-declarations.db
+customs-declarations.db-*
+**/assets/generated/customs-declarations.json
+البيانات الجمركية*.xlsx
+

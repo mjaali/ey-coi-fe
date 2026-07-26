@@ -40,9 +40,42 @@
       "network": {
         "title": "Infrastructure",
         "description": "Track the supporting utility and services network that keeps the industrial base running."
+      },
+      "demand": {
+        "title": "Demand analysis",
+        "description": "Track customs trade demand into MODON cities — import weight, origins, product chapters, and monthly trends."
       }
     },
     "footer": "MODON — Center of Intelligence"
+  },
+  "DemandPage": {
+    "brand": "MODON",
+    "backToIntro": "Back to overview",
+    "title": "Demand analysis",
+    "subtitle": "Customs declarations linked to MODON industrial cities — import weight as the primary signal of input demand across the network.",
+    "yearFilter": "Period",
+    "yearAll": "All years",
+    "statDeclarations": "Declarations",
+    "statImportWeight": "Import weight",
+    "statCities": "Industrial cities",
+    "statOrigins": "Origin countries",
+    "statImportShare": "Import share of weight",
+    "weightMt": "{value} Mt",
+    "weightKt": "{value} kt",
+    "weightT": "{value} t",
+    "trendTitle": "Monthly import weight",
+    "trendSubtitle": "Net import weight by month (tonnes scale)",
+    "trendHint": "Hover a bar for the exact month and weight. Rankings below cover the full period.",
+    "citiesTitle": "Cities by import weight",
+    "citiesSubtitle": "Industrial cities receiving the most inbound cargo by weight",
+    "originsTitle": "Origin countries",
+    "originsSubtitle": "Top sources of imports into MODON cities",
+    "hsTitle": "Product chapters (HS)",
+    "hsSubtitle": "Harmonized System chapters with the highest import weight",
+    "portsTitle": "Ports of entry",
+    "portsSubtitle": "Gateways handling the largest share of import weight",
+    "declarationsCount": "{count} declarations",
+    "sourceNote": "Based on {count} customs declarations (imports and exports) linked to MODON industrial cities."
   },
   "IndustriesPage": {
     "brand": "MODON",
