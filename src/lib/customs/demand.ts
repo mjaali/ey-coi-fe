@@ -678,9 +678,10 @@ export function loadDemand(raw: RawFilters): DemandData {
     cur,
     prev,
   });
+  // Full list feeds the map; rank panels slice to a short leaderboard.
   const cities = toRankRows(cityAgg, cube.city, hasPrev, (m) => ({
     label: cityName(m),
-  }), 12);
+  }), 50);
 
   const chapterAgg = aggregate(cube.chapter, {
     countryId: idIn(cube.chapter),

@@ -26,12 +26,15 @@ export function CountryPicker({
   value,
   onChange,
   disabled,
+  fullWidth,
 }: {
   locale: Locale;
   options: CountryOption[];
   value: string | null;
   onChange: (code: string | null) => void;
   disabled?: boolean;
+  /** Stretch the trigger to the sidebar width. */
+  fullWidth?: boolean;
 }) {
   const t = useTranslations("DemandPage");
   const fmt = useDemandFormat(locale);
@@ -84,8 +87,8 @@ export function CountryPicker({
   };
 
   return (
-    <div ref={rootRef} className="relative">
-      <div className="flex items-center gap-1">
+    <div ref={rootRef} className={cn("relative", fullWidth && "w-full")}>
+      <div className={cn("flex items-center gap-1", fullWidth && "w-full")}>
         <button
           type="button"
           disabled={disabled}
@@ -93,7 +96,8 @@ export function CountryPicker({
           aria-expanded={open}
           aria-haspopup="listbox"
           className={cn(
-            "flex h-9 items-center gap-2 rounded-full border px-3.5 text-sm font-medium transition-colors disabled:opacity-50",
+            "flex h-9 items-center gap-2 border px-3.5 text-sm font-medium transition-colors disabled:opacity-50",
+            fullWidth ? "min-w-0 flex-1 rounded-xl" : "rounded-full",
             selected
               ? "border-foreground bg-foreground text-background"
               : "border-border bg-card text-muted-foreground hover:border-foreground/30 hover:text-foreground"
@@ -106,7 +110,7 @@ export function CountryPicker({
           ) : (
             <Globe className="h-4 w-4 shrink-0" aria-hidden />
           )}
-          <span className="max-w-[12rem] truncate">
+          <span className={cn("truncate", fullWidth ? "flex-1 text-start" : "max-w-[12rem]")}>
             {selected ? fmt.name(selected.name) : t("countryAll")}
           </span>
           <ChevronDown
@@ -123,7 +127,7 @@ export function CountryPicker({
             type="button"
             onClick={() => select(null)}
             aria-label={t("countryClear")}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
           >
             <X className="h-4 w-4" aria-hidden />
           </button>
@@ -131,7 +135,7 @@ export function CountryPicker({
       </div>
 
       {open && (
-        <div className="absolute top-full z-50 mt-2 w-[min(22rem,calc(100vw-3rem))] overflow-hidden rounded-2xl border border-border bg-popover shadow-xl ltr:left-0 rtl:right-0">
+        <div className="absolute top-full z-50 mt-2 w-full min-w-[min(22rem,calc(100vw-3rem))] overflow-hidden rounded-2xl border border-border bg-popover shadow-xl ltr:left-0 rtl:right-0">
           <div className="flex items-center gap-2 border-b border-border px-3">
             <Search
               className="h-4 w-4 shrink-0 text-muted-foreground"

@@ -69,63 +69,12 @@ export function FilterBar({
   return (
     <section
       className={cn(
-        "flex flex-col gap-4 rounded-3xl border border-border bg-card p-4 transition-opacity sm:p-5",
+        "flex flex-col gap-5 rounded-3xl border border-border bg-card p-4 transition-opacity sm:p-5",
         pending && "opacity-60"
       )}
     >
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
-        <FilterGroup label={t("flowFilter")}>
-          <div className="flex rounded-full border border-border bg-background p-0.5">
-            {flows.map(({ id, label, icon: Icon }) => (
-              <button
-                key={id}
-                type="button"
-                onClick={() => apply({ flow: id })}
-                aria-pressed={filters.flow === id}
-                className={cn(
-                  "flex h-8 items-center gap-1.5 rounded-full px-3 text-sm font-medium transition-colors",
-                  filters.flow === id
-                    ? "bg-foreground text-background"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                <Icon className="h-3.5 w-3.5 rtl:-scale-x-100" aria-hidden />
-                {label}
-              </button>
-            ))}
-          </div>
-        </FilterGroup>
-
-        <FilterGroup label={t("countryFilter")}>
-          <CountryPicker
-            locale={locale}
-            options={countries}
-            value={filters.country}
-            onChange={(code) => apply({ country: code })}
-          />
-        </FilterGroup>
-
-        <FilterGroup label={t("periodFilter")}>
-          <div className="flex flex-wrap gap-1.5">
-            {periods.map((option) => (
-              <button
-                key={option.id}
-                type="button"
-                onClick={() => apply({ period: option.id })}
-                aria-pressed={filters.period === option.id}
-                className={cn(
-                  "h-9 rounded-full border px-3.5 text-sm font-medium transition-colors",
-                  filters.period === option.id
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-border bg-background text-muted-foreground hover:border-foreground/30 hover:text-foreground"
-                )}
-              >
-                {periodLabel(option)}
-              </button>
-            ))}
-          </div>
-        </FilterGroup>
-
+      <div className="flex items-center justify-between gap-2">
+        <h2 className="text-sm font-semibold tracking-tight">{t("filtersTitle")}</h2>
         {pending && (
           <Loader2
             className="h-4 w-4 animate-spin text-muted-foreground"
@@ -133,6 +82,59 @@ export function FilterBar({
           />
         )}
       </div>
+
+      <FilterGroup label={t("flowFilter")}>
+        <div className="flex w-full rounded-full border border-border bg-background p-0.5">
+          {flows.map(({ id, label, icon: Icon }) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => apply({ flow: id })}
+              aria-pressed={filters.flow === id}
+              className={cn(
+                "flex h-9 flex-1 items-center justify-center gap-1.5 rounded-full px-2 text-sm font-medium transition-colors",
+                filters.flow === id
+                  ? "bg-foreground text-background"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <Icon className="h-3.5 w-3.5 rtl:-scale-x-100" aria-hidden />
+              {label}
+            </button>
+          ))}
+        </div>
+      </FilterGroup>
+
+      <FilterGroup label={t("countryFilter")}>
+        <CountryPicker
+          locale={locale}
+          options={countries}
+          value={filters.country}
+          onChange={(code) => apply({ country: code })}
+          fullWidth
+        />
+      </FilterGroup>
+
+      <FilterGroup label={t("periodFilter")}>
+        <div className="flex flex-col gap-1.5">
+          {periods.map((option) => (
+            <button
+              key={option.id}
+              type="button"
+              onClick={() => apply({ period: option.id })}
+              aria-pressed={filters.period === option.id}
+              className={cn(
+                "h-9 w-full rounded-xl border px-3 text-start text-sm font-medium transition-colors",
+                filters.period === option.id
+                  ? "border-foreground bg-foreground text-background"
+                  : "border-border bg-background text-muted-foreground hover:border-foreground/30 hover:text-foreground"
+              )}
+            >
+              {periodLabel(option)}
+            </button>
+          ))}
+        </div>
+      </FilterGroup>
     </section>
   );
 }

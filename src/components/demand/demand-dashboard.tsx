@@ -7,6 +7,7 @@ import type { DemandData } from "@/lib/customs/demand";
 import type { Locale } from "@/i18n/routing";
 import { CountryProfileCard } from "./country-profile-card";
 import { DeltaChip } from "./delta-chip";
+import { DemandMap } from "./demand-map";
 import { FilterBar } from "./filter-bar";
 import { useDemandFormat } from "./format";
 import { InsightGrid } from "./insight-grid";
@@ -123,128 +124,153 @@ export function DemandDashboard({
   ];
 
   return (
-    <>
-      <FilterBar
-        locale={locale}
-        filters={filters}
-        periods={data.periods}
-        countries={data.countries}
-      />
+    <div className="grid items-start gap-8 lg:grid-cols-[minmax(15rem,17.5rem)_minmax(0,1fr)]">
+      <aside className="lg:sticky lg:top-6 lg:self-start">
+        <FilterBar
+          locale={locale}
+          filters={filters}
+          periods={data.periods}
+          countries={data.countries}
+        />
+      </aside>
 
-      <section className="flex flex-col gap-4">
-        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-          <h2 className="text-xl font-semibold tracking-tight">
-            {periodLabel}
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            {priorLabel
-              ? t("comparisonBasis", { period: priorLabel })
-              : t("comparisonNone")}
-          </p>
-        </div>
+      <div className="flex min-w-0 flex-col gap-12">
+        <section className="flex flex-col gap-4">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <h2 className="text-xl font-semibold tracking-tight">
+              {periodLabel}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              {priorLabel
+                ? t("comparisonBasis", { period: priorLabel })
+                : t("comparisonNone")}
+            </p>
+          </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {stats.map((stat) => (
-            <div
-              key={stat.key}
-              className="flex flex-col justify-between gap-3 rounded-2xl border border-border bg-card p-4"
-            >
-              <div className="text-2xl font-semibold tracking-tight tabular-nums">
-                {stat.value}
-              </div>
-              <div>
-                <div className="text-xs leading-snug text-muted-foreground">
-                  {stat.label}
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {stats.map((stat) => (
+              <div
+                key={stat.key}
+                className="flex flex-col justify-between gap-3 rounded-2xl border border-border bg-card p-4"
+              >
+                <div className="text-2xl font-semibold tracking-tight tabular-nums">
+                  {stat.value}
                 </div>
-                <DeltaChip
-                  size="xs"
-                  className="mt-1.5"
-                  value={stat.delta}
-                  label={deltaLabel(stat.delta)}
-                />
+                <div>
+                  <div className="text-xs leading-snug text-muted-foreground">
+                    {stat.label}
+                  </div>
+                  <DeltaChip
+                    size="xs"
+                    className="mt-1.5"
+                    value={stat.delta}
+                    label={deltaLabel(stat.delta)}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
 
-      <section className="flex flex-col gap-4">
-        <div>
-          <h2 className="text-xl font-semibold tracking-tight">
-            {t("insightsTitle")}
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            {t("insightsSubtitle")}
-          </p>
-        </div>
-        <InsightGrid locale={locale} insights={data.insights} />
-      </section>
+        <section className="flex flex-col gap-4">
+          <div>
+            <h2 className="text-xl font-semibold tracking-tight">
+              {t("mapTitle")}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              {isImport ? t("mapSubtitleImport") : t("mapSubtitleExport")}
+            </p>
+          </div>
+          <DemandMap
+            locale={locale}
+            cities={data.cities}
+            className="h-[min(56vh,28rem)] w-full"
+          />
+        </section>
 
-      {data.countryProfile && (
-        <CountryProfileCard
-          locale={locale}
-          profile={data.countryProfile}
-          periodLabel={periodLabel}
-          onClear={() => setCountry(null)}
-        />
-      )}
+        <section className="flex flex-col gap-4">
+          <div>
+            <h2 className="text-xl font-semibold tracking-tight">
+              {t("insightsTitle")}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              {t("insightsSubtitle")}
+            </p>
+          </div>
+          <InsightGrid locale={locale} insights={data.insights} />
+        </section>
 
-      <TrendChart
-        locale={locale}
-        series={data.series}
-        priorLabel={priorLabel}
-        flow={filters.flow}
-      />
+        {data.countryProfile && (
+          <CountryProfileCard
+            locale={locale}
+            profile={data.countryProfile}
+            periodLabel={periodLabel}
+            onClear={() => setCountry(null)}
+          />
+        )}
 
-      <section className="grid gap-4 lg:grid-cols-3">
-        <ConcentrationCard locale={locale} concentration={data.concentration} />
-        <TradeBalanceCard
+        <TrendChart
           locale={locale}
-          imports={data.importTotals}
-          exports={data.exportTotals}
+          series={data.series}
+          priorLabel={priorLabel}
+          flow={filters.flow}
         />
-        <ModeSplitCard locale={locale} modes={data.modeSplit} />
-      </section>
 
-      <section className="grid gap-6 lg:grid-cols-2">
-        <RankPanel
-          locale={locale}
-          title={isImport ? t("originsTitle") : t("destinationsTitle")}
-          subtitle={
-            isImport ? t("originsSubtitle") : t("destinationsSubtitle")
-          }
-          rows={data.countriesRank}
-          accent="violet"
-          activeCode={filters.country}
-          onSelect={setCountry}
-        />
-        <RankPanel
-          locale={locale}
-          title={t("citiesTitle")}
-          subtitle={isImport ? t("citiesSubtitle") : t("citiesSubtitleExport")}
-          rows={data.cities}
-          accent="sky"
-        />
-      </section>
+        <section className="grid gap-4 lg:grid-cols-3">
+          <ConcentrationCard
+            locale={locale}
+            concentration={data.concentration}
+          />
+          <TradeBalanceCard
+            locale={locale}
+            imports={data.importTotals}
+            exports={data.exportTotals}
+          />
+          <ModeSplitCard locale={locale} modes={data.modeSplit} />
+        </section>
 
-      <section className="grid gap-6 lg:grid-cols-2">
-        <RankPanel
-          locale={locale}
-          title={t("hsTitle")}
-          subtitle={t("hsSubtitle")}
-          rows={data.chapters}
-          accent="emerald"
-        />
-        <RankPanel
-          locale={locale}
-          title={isImport ? t("portsTitle") : t("portsTitleExport")}
-          subtitle={
-            isImport ? t("portsSubtitle") : t("portsSubtitleExport")
-          }
-          rows={data.ports}
-          accent="amber"
-        />
-      </section>
-    </>
+        <section className="grid gap-6 lg:grid-cols-2">
+          <RankPanel
+            locale={locale}
+            title={isImport ? t("originsTitle") : t("destinationsTitle")}
+            subtitle={
+              isImport ? t("originsSubtitle") : t("destinationsSubtitle")
+            }
+            rows={data.countriesRank}
+            accent="violet"
+            activeCode={filters.country}
+            onSelect={setCountry}
+          />
+          <RankPanel
+            locale={locale}
+            title={t("citiesTitle")}
+            subtitle={
+              isImport ? t("citiesSubtitle") : t("citiesSubtitleExport")
+            }
+            rows={data.cities.slice(0, 12)}
+            accent="sky"
+          />
+        </section>
+
+        <section className="grid gap-6 lg:grid-cols-2">
+          <RankPanel
+            locale={locale}
+            title={t("hsTitle")}
+            subtitle={t("hsSubtitle")}
+            rows={data.chapters}
+            accent="emerald"
+          />
+          <RankPanel
+            locale={locale}
+            title={isImport ? t("portsTitle") : t("portsTitleExport")}
+            subtitle={
+              isImport ? t("portsSubtitle") : t("portsSubtitleExport")
+            }
+            rows={data.ports}
+            accent="amber"
+          />
+        </section>
+      </div>
+    </div>
   );
 }

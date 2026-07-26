@@ -60,6 +60,7 @@
     "weightT": "{value} t",
     "declarationsCount": "{count} declarations",
 
+    "filtersTitle": "Filters",
     "flowFilter": "Flow",
     "flowImport": "Imports",
     "flowExport": "Exports",
@@ -72,6 +73,12 @@
     "periodAll": "All time",
     "periodTtm": "Last 12 months",
     "periodPartialYear": "{year} ({from}–{to})",
+
+    "mapTitle": "Trade weight by city",
+    "mapSubtitleImport": "Marker size reflects inbound cargo weight across MODON industrial cities for the current selection.",
+    "mapSubtitleExport": "Marker size reflects outbound cargo weight across MODON industrial cities for the current selection.",
+    "mapTokenMissing": "Add NEXT_PUBLIC_MAPBOX_TOKEN to .env.local to enable the map.",
+    "mapEmpty": "No mapped cities for this selection.",
 
     "comparisonBasis": "Compared with {period}",
     "comparisonNone": "No earlier period available for comparison",

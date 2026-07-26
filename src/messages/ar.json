@@ -60,6 +60,7 @@
     "weightT": "{value} طن",
     "declarationsCount": "{count} بيان",
 
+    "filtersTitle": "عوامل التصفية",
     "flowFilter": "الاتجاه",
     "flowImport": "الواردات",
     "flowExport": "الصادرات",
@@ -72,6 +73,12 @@
     "periodAll": "كل الفترات",
     "periodTtm": "آخر 12 شهرًا",
     "periodPartialYear": "{year} ({from}–{to})",
+
+    "mapTitle": "وزن التجارة حسب المدينة",
+    "mapSubtitleImport": "حجم العلامة يعكس وزن الشحنات الواردة عبر المدن الصناعية في مدن للتحديد الحالي.",
+    "mapSubtitleExport": "حجم العلامة يعكس وزن الشحنات الصادرة عبر المدن الصناعية في مدن للتحديد الحالي.",
+    "mapTokenMissing": "أضف NEXT_PUBLIC_MAPBOX_TOKEN إلى .env.local لتفعيل الخريطة.",
+    "mapEmpty": "لا توجد مدن مُحدَّدة الموقع لهذا التحديد.",
 
     "comparisonBasis": "مقارنةً بـ {period}",
     "comparisonNone": "لا تتوفر فترة سابقة للمقارنة",
