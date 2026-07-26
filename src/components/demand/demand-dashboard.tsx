@@ -1,352 +1,250 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { StatCard } from "@/components/layout/stat-card";
+import { usePathname, useRouter } from "@/i18n/navigation";
+import type { DemandData } from "@/lib/customs/demand";
 import type { Locale } from "@/i18n/routing";
-import type {
-  CustomsDemandData,
-  HsChapterRow,
-  MonthPoint,
-  TradeTotals,
-} from "@/lib/customs/demand";
-import { cn } from "@/lib/utils";
-
-const MONTH_EN = [
-  "",
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
-type YearFilter = "all" | number;
-
-function kgToTonnes(kg: number) {
-  return kg / 1000;
-}
+import { CountryProfileCard } from "./country-profile-card";
+import { DeltaChip } from "./delta-chip";
+import { FilterBar } from "./filter-bar";
+import { useDemandFormat } from "./format";
+import { InsightGrid } from "./insight-grid";
+import { RankPanel } from "./rank-panel";
+import {
+  ConcentrationCard,
+  ModeSplitCard,
+  TradeBalanceCard,
+} from "./structure-cards";
+import { TrendChart } from "./trend-chart";
 
 export function DemandDashboard({
   locale,
   data,
 }: {
   locale: Locale;
-  data: CustomsDemandData;
+  data: DemandData;
 }) {
   const t = useTranslations("DemandPage");
-  const [year, setYear] = useState<YearFilter>("all");
+  const fmt = useDemandFormat(locale);
+  const router = useRouter();
+  const pathname = usePathname();
+  const [, startTransition] = useTransition();
 
-  const nf = useMemo(
-    () =>
-      new Intl.NumberFormat(locale === "ar" ? "ar" : "en-US", {
-        maximumFractionDigits: 1,
-      }),
-    [locale]
+  const { filters, headline, window: win, priorWindow } = data;
+  const isImport = filters.flow === "import";
+
+  const setCountry = useCallback(
+    (code: string | null) => {
+      const params = new URLSearchParams();
+      if (filters.period !== "all") params.set("period", filters.period);
+      if (code) params.set("country", code);
+      if (filters.flow !== "import") params.set("flow", filters.flow);
+      const query = params.toString();
+      startTransition(() => {
+        router.replace(query ? `${pathname}?${query}` : pathname, {
+          scroll: false,
+        });
+      });
+    },
+    [filters.period, filters.flow, pathname, router]
   );
-  const nfInt = useMemo(
-    () =>
-      new Intl.NumberFormat(locale === "ar" ? "ar" : "en-US", {
-        maximumFractionDigits: 0,
-      }),
-    [locale]
+
+  const periodLabel = fmt.range(
+    win.fromYear,
+    win.fromMonth,
+    win.toYear,
+    win.toMonth
   );
-  const pf = useMemo(
-    () =>
-      new Intl.NumberFormat(locale === "ar" ? "ar" : "en-US", {
-        style: "percent",
-        maximumFractionDigits: 0,
-      }),
-    [locale]
-  );
+  const priorLabel = priorWindow
+    ? fmt.range(
+        priorWindow.fromYear,
+        priorWindow.fromMonth,
+        priorWindow.toYear,
+        priorWindow.toMonth
+      )
+    : null;
 
-  const formatWeight = (kg: number) => {
-    const tonnes = kgToTonnes(kg);
-    if (tonnes >= 1_000_000) {
-      return t("weightMt", { value: nf.format(tonnes / 1_000_000) });
-    }
-    if (tonnes >= 1_000) {
-      return t("weightKt", { value: nf.format(tonnes / 1_000) });
-    }
-    return t("weightT", { value: nf.format(tonnes) });
-  };
-
-  const totals: TradeTotals =
-    year === "all" ? data.totals : (data.byYear[String(year)] ?? data.totals);
-
-  const importShare =
-    totals.netWeightKg > 0 ? totals.importWeightKg / totals.netWeightKg : 0;
-
-  const months: MonthPoint[] =
-    year === "all"
-      ? data.byMonth
-      : data.byMonth.filter((m) => m.year === year);
-
-  const maxMonthWeight = Math.max(...months.map((m) => m.importWeightKg), 1);
-
-  const cities = data.byCity.slice(0, 10);
-  const origins = data.byOrigin.slice(0, 10);
-  const chapters = data.byHsChapter.slice(0, 10);
-  const ports = data.byPort.slice(0, 8);
-
-  const maxCity = cities[0]?.importWeightKg ?? 1;
-  const maxOrigin = origins[0]?.importWeightKg ?? 1;
-  const maxChapter = chapters[0]?.importWeightKg ?? 1;
-  const maxPort = ports[0]?.importWeightKg ?? 1;
-
-  const monthLabel = (m: MonthPoint) => {
-    if (locale === "ar") return m.monthAr;
-    return MONTH_EN[m.monthNum] ?? m.monthAr;
-  };
-
-  const chapterName = (c: HsChapterRow) =>
-    locale === "ar" ? c.name.ar : c.name.en;
-
-  const yearOptions: YearFilter[] = ["all", ...data.years];
+  const deltaLabel = (value: number | null) =>
+    value === null ? "" : fmt.signedPercent.format(value);
 
   const stats = [
     {
+      key: "weight",
+      label: isImport ? t("statImportWeight") : t("statExportWeight"),
+      value: fmt.weight(headline.current.kg),
+      delta: headline.deltaKg,
+    },
+    {
+      key: "declarations",
       label: t("statDeclarations"),
-      value: nfInt.format(totals.declarations),
+      value: fmt.integer.format(headline.current.declarations),
+      delta: headline.deltaDeclarations,
     },
     {
-      label: t("statImportWeight"),
-      value: formatWeight(totals.importWeightKg),
+      key: "shipment",
+      label: t("statAvgShipment"),
+      value: t("weightT", {
+        value: fmt.decimal.format(data.avgShipmentKg / 1000),
+      }),
+      delta: null,
     },
     {
+      key: "importers",
+      label: isImport ? t("statImporters") : t("statExporters"),
+      value: fmt.integer.format(data.importers.current),
+      delta:
+        data.importers.previous && data.importers.previous > 0
+          ? (data.importers.current - data.importers.previous) /
+            data.importers.previous
+          : null,
+    },
+    // With a country selected, a network-wide partner count would read as if it
+    // belonged to that country, so show its share of the network instead.
+    data.countryProfile
+      ? {
+          key: "share",
+          label: t("statNetworkShare"),
+          value: fmt.percent1.format(data.countryProfile.share),
+          delta: null,
+        }
+      : {
+          key: "partners",
+          label: isImport ? t("statOrigins") : t("statDestinations"),
+          value: fmt.integer.format(data.activeCountries),
+          delta: null,
+        },
+    {
+      key: "cities",
       label: t("statCities"),
-      value: nfInt.format(data.totals.cities),
-    },
-    {
-      label: t("statOrigins"),
-      value: nfInt.format(data.totals.originCountries),
-    },
-    {
-      label: t("statImportShare"),
-      value: pf.format(importShare),
-      className: "col-span-2 sm:col-span-1",
+      value: fmt.integer.format(data.activeCities),
+      delta: null,
     },
   ];
 
   return (
     <>
-      <div className="flex flex-wrap items-center gap-2">
-        <span className="text-sm text-muted-foreground">{t("yearFilter")}</span>
-        <div className="flex flex-wrap gap-1.5">
-          {yearOptions.map((option) => {
-            const active = year === option;
-            const label =
-              option === "all" ? t("yearAll") : nfInt.format(option);
-            return (
-              <button
-                key={String(option)}
-                type="button"
-                onClick={() => setYear(option)}
-                className={cn(
-                  "rounded-full border px-3 py-1 text-sm font-medium transition-colors",
-                  active
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-border bg-card text-muted-foreground hover:border-foreground/30 hover:text-foreground"
-                )}
-              >
-                {label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
+      <FilterBar
+        locale={locale}
+        filters={filters}
+        periods={data.periods}
+        countries={data.countries}
+      />
 
-      <section className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 sm:gap-4">
-        {stats.map((stat) => (
-          <StatCard
-            key={stat.label}
-            label={stat.label}
-            value={stat.value}
-            className={stat.className}
-          />
-        ))}
+      <section className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <h2 className="text-xl font-semibold tracking-tight">
+            {periodLabel}
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            {priorLabel
+              ? t("comparisonBasis", { period: priorLabel })
+              : t("comparisonNone")}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          {stats.map((stat) => (
+            <div
+              key={stat.key}
+              className="flex flex-col justify-between gap-3 rounded-2xl border border-border bg-card p-4"
+            >
+              <div className="text-2xl font-semibold tracking-tight tabular-nums">
+                {stat.value}
+              </div>
+              <div>
+                <div className="text-xs leading-snug text-muted-foreground">
+                  {stat.label}
+                </div>
+                <DeltaChip
+                  size="xs"
+                  className="mt-1.5"
+                  value={stat.delta}
+                  label={deltaLabel(stat.delta)}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
-      <section className="flex flex-col gap-4 rounded-3xl border border-border bg-card p-6 sm:p-7">
+      <section className="flex flex-col gap-4">
         <div>
           <h2 className="text-xl font-semibold tracking-tight">
-            {t("trendTitle")}
+            {t("insightsTitle")}
           </h2>
-          <p className="text-sm text-muted-foreground">{t("trendSubtitle")}</p>
+          <p className="text-sm text-muted-foreground">
+            {t("insightsSubtitle")}
+          </p>
         </div>
-        <div className="flex h-40 items-end gap-1 sm:gap-1.5">
-          {months.map((m) => {
-            const height = (m.importWeightKg / maxMonthWeight) * 100;
-            return (
-              <div
-                key={m.key}
-                className="group relative flex min-w-0 flex-1 flex-col items-center justify-end"
-              >
-                <div
-                  className="w-full rounded-t-sm bg-sky-500/90 transition-opacity group-hover:opacity-80"
-                  style={{ height: `${Math.max(height, 2)}%` }}
-                  title={`${monthLabel(m)} ${m.year}: ${formatWeight(m.importWeightKg)}`}
-                />
-                <span className="mt-2 hidden truncate text-[10px] text-muted-foreground sm:block">
-                  {year === "all"
-                    ? `${monthLabel(m).slice(0, 3)}`
-                    : monthLabel(m)}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-        {year === "all" && (
-          <p className="text-xs text-muted-foreground">{t("trendHint")}</p>
-        )}
+        <InsightGrid locale={locale} insights={data.insights} />
+      </section>
+
+      {data.countryProfile && (
+        <CountryProfileCard
+          locale={locale}
+          profile={data.countryProfile}
+          periodLabel={periodLabel}
+          onClear={() => setCountry(null)}
+        />
+      )}
+
+      <TrendChart
+        locale={locale}
+        series={data.series}
+        priorLabel={priorLabel}
+        flow={filters.flow}
+      />
+
+      <section className="grid gap-4 lg:grid-cols-3">
+        <ConcentrationCard locale={locale} concentration={data.concentration} />
+        <TradeBalanceCard
+          locale={locale}
+          imports={data.importTotals}
+          exports={data.exportTotals}
+        />
+        <ModeSplitCard locale={locale} modes={data.modeSplit} />
       </section>
 
       <section className="grid gap-6 lg:grid-cols-2">
-        <RankPanel title={t("citiesTitle")} subtitle={t("citiesSubtitle")}>
-          {cities.map((city, i) => (
-            <RankRow
-              key={city.nameAr}
-              rank={i + 1}
-              label={city.nameAr}
-              primary={formatWeight(city.importWeightKg)}
-              secondary={t("declarationsCount", {
-                count: nfInt.format(city.importDeclarations),
-              })}
-              width={(city.importWeightKg / maxCity) * 100}
-              accent="city"
-            />
-          ))}
-        </RankPanel>
-
-        <RankPanel title={t("originsTitle")} subtitle={t("originsSubtitle")}>
-          {origins.map((origin, i) => (
-            <RankRow
-              key={origin.nameAr}
-              rank={i + 1}
-              label={origin.nameAr}
-              primary={formatWeight(origin.importWeightKg)}
-              secondary={t("declarationsCount", {
-                count: nfInt.format(origin.importDeclarations),
-              })}
-              width={(origin.importWeightKg / maxOrigin) * 100}
-              accent="origin"
-            />
-          ))}
-        </RankPanel>
+        <RankPanel
+          locale={locale}
+          title={isImport ? t("originsTitle") : t("destinationsTitle")}
+          subtitle={
+            isImport ? t("originsSubtitle") : t("destinationsSubtitle")
+          }
+          rows={data.countriesRank}
+          accent="violet"
+          activeCode={filters.country}
+          onSelect={setCountry}
+        />
+        <RankPanel
+          locale={locale}
+          title={t("citiesTitle")}
+          subtitle={isImport ? t("citiesSubtitle") : t("citiesSubtitleExport")}
+          rows={data.cities}
+          accent="sky"
+        />
       </section>
 
       <section className="grid gap-6 lg:grid-cols-2">
-        <RankPanel title={t("hsTitle")} subtitle={t("hsSubtitle")}>
-          {chapters.map((chapter, i) => (
-            <RankRow
-              key={chapter.chapter}
-              rank={i + 1}
-              label={`${chapter.chapter} · ${chapterName(chapter)}`}
-              primary={formatWeight(chapter.importWeightKg)}
-              secondary={t("declarationsCount", {
-                count: nfInt.format(chapter.importDeclarations),
-              })}
-              width={(chapter.importWeightKg / maxChapter) * 100}
-              accent="hs"
-            />
-          ))}
-        </RankPanel>
-
-        <RankPanel title={t("portsTitle")} subtitle={t("portsSubtitle")}>
-          {ports.map((port, i) => (
-            <RankRow
-              key={port.nameAr}
-              rank={i + 1}
-              label={port.nameAr}
-              primary={formatWeight(port.importWeightKg)}
-              secondary={t("declarationsCount", {
-                count: nfInt.format(port.importDeclarations),
-              })}
-              width={(port.importWeightKg / maxPort) * 100}
-              accent="port"
-            />
-          ))}
-        </RankPanel>
+        <RankPanel
+          locale={locale}
+          title={t("hsTitle")}
+          subtitle={t("hsSubtitle")}
+          rows={data.chapters}
+          accent="emerald"
+        />
+        <RankPanel
+          locale={locale}
+          title={isImport ? t("portsTitle") : t("portsTitleExport")}
+          subtitle={
+            isImport ? t("portsSubtitle") : t("portsSubtitleExport")
+          }
+          rows={data.ports}
+          accent="amber"
+        />
       </section>
     </>
-  );
-}
-
-function RankPanel({
-  title,
-  subtitle,
-  children,
-}: {
-  title: string;
-  subtitle: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="flex flex-col gap-5 rounded-3xl border border-border bg-card p-6 sm:p-7">
-      <div>
-        <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
-        <p className="text-sm text-muted-foreground">{subtitle}</p>
-      </div>
-      <div className="flex flex-col gap-4">{children}</div>
-    </div>
-  );
-}
-
-function RankRow({
-  rank,
-  label,
-  primary,
-  secondary,
-  width,
-  accent,
-}: {
-  rank: number;
-  label: string;
-  primary: string;
-  secondary: string;
-  width: number;
-  accent: "city" | "origin" | "hs" | "port";
-}) {
-  const bar =
-    accent === "city"
-      ? "bg-sky-500"
-      : accent === "origin"
-        ? "bg-violet-500"
-        : accent === "hs"
-          ? "bg-emerald-500"
-          : "bg-amber-500";
-
-  return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-baseline justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-3">
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-semibold text-muted-foreground">
-            {rank}
-          </span>
-          <span className="truncate font-medium">{label}</span>
-        </div>
-        <div className="shrink-0 text-end">
-          <span className="font-semibold">{primary}</span>
-        </div>
-      </div>
-      <div className="flex items-center gap-3">
-        <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
-          <div
-            className={cn("h-full rounded-full", bar)}
-            style={{ width: `${Math.max(width, 4)}%` }}
-          />
-        </div>
-        <span className="w-28 shrink-0 text-end text-xs text-muted-foreground sm:text-sm">
-          {secondary}
-        </span>
-      </div>
-    </div>
   );
 }

@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "ingest:customs": "node scripts/ingest-customs.mjs"
+    "ingest:customs": "node scripts/ingest-customs.mjs",
+    "check:messages": "node scripts/check-messages.mjs",
+    "check:demand": "tsx scripts/verify-demand.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -36,6 +38,7 @@
     "eslint-config-next": "16.2.10",
     "stream-json": "^3.5.0",
     "tailwindcss": "^4",
+    "tsx": "^4.23.1",
     "typescript": "^5"
   }
 }

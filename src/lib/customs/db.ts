@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 
 const DEFAULT_DB_PATH = resolve(
-  process.cwd(),
+  /*turbopackIgnore: true*/ process.cwd(),
   "../material/customs-declarations.db"
 );
 
