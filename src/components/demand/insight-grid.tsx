@@ -42,15 +42,15 @@ export function InsightGrid({
     return (
       <li
         key={`${insight.kind}-${index}`}
-        className="flex gap-3 rounded-2xl border border-border bg-card p-4"
+        className="flex gap-2.5 rounded-xl border border-border bg-card p-3"
       >
         <span
           className={cn(
-            "flex h-8 w-8 shrink-0 items-center justify-center rounded-full",
+            "flex h-7 w-7 shrink-0 items-center justify-center rounded-full",
             TONE_STYLE[insight.tone]
           )}
         >
-          <rendered.icon className="h-4 w-4" aria-hidden />
+          <rendered.icon className="h-3.5 w-3.5" aria-hidden />
         </span>
         <div className="min-w-0 flex-1">
           <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">

@@ -23,7 +23,7 @@ export function LocaleSwitcher() {
     <div
       role="group"
       aria-label={t("label")}
-      className="flex items-center gap-1 rounded-full border border-border p-1"
+      className="flex items-center gap-0.5 rounded-full border border-border p-0.5"
     >
       {routing.locales.map((l) => (
         <button
@@ -31,7 +31,7 @@ export function LocaleSwitcher() {
           type="button"
           onClick={() => switchTo(l)}
           className={cn(
-            "rounded-full px-3 py-1 text-sm transition-colors",
+            "rounded-full px-2.5 py-0.5 text-xs transition-colors",
             l === locale
               ? "bg-foreground text-background"
               : "text-muted-foreground hover:text-foreground"

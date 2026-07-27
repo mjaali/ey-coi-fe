@@ -96,7 +96,7 @@ export function CountryPicker({
           aria-expanded={open}
           aria-haspopup="listbox"
           className={cn(
-            "flex h-9 items-center gap-2 border px-3.5 text-sm font-medium transition-colors disabled:opacity-50",
+            "flex h-8 items-center gap-2 border px-3 text-sm font-medium transition-colors disabled:opacity-50",
             fullWidth ? "min-w-0 flex-1 rounded-xl" : "rounded-full",
             selected
               ? "border-foreground bg-foreground text-background"
@@ -127,7 +127,7 @@ export function CountryPicker({
             type="button"
             onClick={() => select(null)}
             aria-label={t("countryClear")}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
           >
             <X className="h-4 w-4" aria-hidden />
           </button>

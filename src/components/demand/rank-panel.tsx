@@ -42,18 +42,18 @@ export function RankPanel({
   const max = rows[0]?.current.kg ?? 1;
 
   return (
-    <div className="flex flex-col gap-5 rounded-3xl border border-border bg-card p-6 sm:p-7">
+    <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-4 sm:p-5">
       <div>
-        <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
+        <h2 className="text-lg font-semibold tracking-tight">{title}</h2>
         <p className="text-sm text-muted-foreground">{subtitle}</p>
       </div>
 
       {rows.length === 0 ? (
-        <p className="py-8 text-center text-sm text-muted-foreground">
+        <p className="py-6 text-center text-sm text-muted-foreground">
           {emptyLabel ?? t("emptyState")}
         </p>
       ) : (
-        <ol className="flex flex-col gap-3.5">
+        <ol className="flex flex-col gap-3">
           {rows.map((row, index) => {
             const isActive = Boolean(
               activeCode && row.code && row.code === activeCode

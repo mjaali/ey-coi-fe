@@ -22,14 +22,14 @@ export function CountryProfileCard({
   const fmt = useDemandFormat(locale);
 
   return (
-    <section className="flex flex-col gap-6 rounded-3xl border border-foreground/15 bg-card p-6 sm:p-7">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <span className="text-4xl leading-none" aria-hidden>
+    <section className="flex flex-col gap-4 rounded-2xl border border-foreground/15 bg-card p-4 sm:p-5">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <span className="text-3xl leading-none" aria-hidden>
             {profile.flag}
           </span>
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight">
+            <h2 className="text-xl font-semibold tracking-tight">
               {fmt.name(profile.name)}
             </h2>
             <p className="text-sm text-muted-foreground">
@@ -53,7 +53,7 @@ export function CountryProfileCard({
         </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
         <Metric
           label={t("profileImports")}
           value={fmt.weight(profile.importKg)}
@@ -73,7 +73,7 @@ export function CountryProfileCard({
         />
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         <MiniList
           locale={locale}
           title={t("profileTopProducts")}
@@ -101,10 +101,10 @@ function Metric({
   tone?: "neutral" | "positive";
 }) {
   return (
-    <div className="rounded-2xl bg-muted/50 p-4">
+    <div className="rounded-xl bg-muted/50 p-3">
       <div
         className={cn(
-          "text-xl font-semibold tracking-tight tabular-nums",
+          "text-lg font-semibold tracking-tight tabular-nums",
           tone === "positive" && "text-emerald-600 dark:text-emerald-400"
         )}
       >

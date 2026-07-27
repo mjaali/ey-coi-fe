@@ -22,10 +22,10 @@ function Card({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-4 rounded-3xl border border-border bg-card p-6">
+    <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-4">
       <div>
-        <h3 className="text-base font-semibold tracking-tight">{title}</h3>
-        <p className="text-sm text-muted-foreground">{subtitle}</p>
+        <h3 className="text-sm font-semibold tracking-tight">{title}</h3>
+        <p className="text-xs text-muted-foreground">{subtitle}</p>
       </div>
       {children}
     </div>

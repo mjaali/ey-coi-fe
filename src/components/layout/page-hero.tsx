@@ -20,17 +20,17 @@ export function PageHero({
   className,
 }: PageHeroProps) {
   return (
-    <section className={cn("flex flex-col gap-4", className)}>
+    <section className={cn("flex flex-col gap-3", className)}>
       <Link
         href="/"
         className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
-        <ArrowLeft className="h-4 w-4 shrink-0 rtl:-scale-x-100" aria-hidden />
+        <ArrowLeft className="h-3.5 w-3.5 shrink-0 rtl:-scale-x-100" aria-hidden />
         {backLabel}
       </Link>
       <h1
         className={cn(
-          "max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl",
+          "max-w-2xl text-3xl font-semibold leading-tight tracking-tight sm:text-4xl",
           titleClassName
         )}
       >
@@ -38,7 +38,7 @@ export function PageHero({
       </h1>
       <p
         className={cn(
-          "max-w-2xl text-lg leading-relaxed text-muted-foreground",
+          "max-w-2xl text-base leading-relaxed text-muted-foreground",
           subtitleClassName
         )}
       >

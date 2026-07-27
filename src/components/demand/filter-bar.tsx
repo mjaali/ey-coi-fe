@@ -69,7 +69,7 @@ export function FilterBar({
   return (
     <section
       className={cn(
-        "flex flex-col gap-5 rounded-3xl border border-border bg-card p-4 transition-opacity sm:p-5",
+        "flex flex-col gap-4 rounded-2xl border border-border bg-card p-3.5 transition-opacity sm:p-4",
         pending && "opacity-60"
       )}
     >
@@ -92,7 +92,7 @@ export function FilterBar({
               onClick={() => apply({ flow: id })}
               aria-pressed={filters.flow === id}
               className={cn(
-                "flex h-9 flex-1 items-center justify-center gap-1.5 rounded-full px-2 text-sm font-medium transition-colors",
+                "flex h-8 flex-1 items-center justify-center gap-1.5 rounded-full px-2 text-sm font-medium transition-colors",
                 filters.flow === id
                   ? "bg-foreground text-background"
                   : "text-muted-foreground hover:text-foreground"
@@ -124,7 +124,7 @@ export function FilterBar({
               onClick={() => apply({ period: option.id })}
               aria-pressed={filters.period === option.id}
               className={cn(
-                "h-9 w-full rounded-xl border px-3 text-start text-sm font-medium transition-colors",
+                "h-8 w-full rounded-lg border px-3 text-start text-sm font-medium transition-colors",
                 filters.period === option.id
                   ? "border-foreground bg-foreground text-background"
                   : "border-border bg-background text-muted-foreground hover:border-foreground/30 hover:text-foreground"

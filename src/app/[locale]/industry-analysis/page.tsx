@@ -65,12 +65,12 @@ export default function IndustryAnalysis({
 
       <IndustrialMap
         locale={locale}
-        className="h-[min(70vh,560px)] w-full"
+        className="h-[min(55vh,28rem)] w-full"
         factoriesLabel={t("factoriesLabel")}
         tokenMissingMessage={tMap("tokenMissing")}
       />
 
-      <section className="grid gap-6 lg:grid-cols-2">
+      <section className="grid gap-4 lg:grid-cols-2">
         <RankPanel
           title={t("topTitle")}
           subtitle={t("topSubtitle")}
@@ -141,21 +141,21 @@ function RankPanel({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-5 rounded-3xl border border-border bg-card p-6 sm:p-7">
-      <div className="flex items-center gap-3">
+    <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-4 sm:p-5">
+      <div className="flex items-center gap-2.5">
         <span
           className={
             accent === "top"
-              ? "h-2.5 w-2.5 rounded-full bg-emerald-500"
-              : "h-2.5 w-2.5 rounded-full bg-amber-500"
+              ? "h-2 w-2 rounded-full bg-emerald-500"
+              : "h-2 w-2 rounded-full bg-amber-500"
           }
         />
         <div>
-          <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
+          <h2 className="text-lg font-semibold tracking-tight">{title}</h2>
           <p className="text-sm text-muted-foreground">{subtitle}</p>
         </div>
       </div>
-      <div className="flex flex-col gap-4">{children}</div>
+      <div className="flex flex-col gap-3">{children}</div>
     </div>
   );
 }

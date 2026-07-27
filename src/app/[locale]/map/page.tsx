@@ -33,7 +33,7 @@ export default function MapPage({
 
       <IndustrialMap
         locale={locale}
-        className="h-[min(70vh,560px)] w-full"
+        className="h-[min(55vh,28rem)] w-full"
         factoriesLabel={t("factoriesLabel")}
         tokenMissingMessage={t("tokenMissing")}
       />

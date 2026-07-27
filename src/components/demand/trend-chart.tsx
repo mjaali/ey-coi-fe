@@ -79,10 +79,10 @@ export function TrendChart({
       : null;
 
   return (
-    <section className="flex flex-col gap-5 rounded-3xl border border-border bg-card p-6 sm:p-7">
+    <section className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-4 sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h2 className="text-xl font-semibold tracking-tight">
+          <h2 className="text-lg font-semibold tracking-tight">
             {flow === "import" ? t("trendTitleImport") : t("trendTitleExport")}
           </h2>
           <p className="text-sm text-muted-foreground">{t("trendSubtitle")}</p>
@@ -115,7 +115,7 @@ export function TrendChart({
             const value = max * (1 - i / GRID_LINES);
             return (
               <div key={i} className="flex items-center gap-2">
-                <span className="w-14 shrink-0 text-end text-[10px] tabular-nums text-muted-foreground">
+                <span className="w-12 shrink-0 text-end text-[10px] tabular-nums text-muted-foreground">
                   {fmt.weight(value)}
                 </span>
                 <span className="h-px flex-1 bg-border" />
@@ -124,7 +124,7 @@ export function TrendChart({
           })}
         </div>
 
-        <div className="relative h-56 ltr:ml-16 rtl:mr-16">
+        <div className="relative h-44 ltr:ml-14 rtl:mr-14">
           {/* Prior-period overlay */}
           {hasPrior && (
             <svg

@@ -35,35 +35,35 @@ export default function Home({
     <PageShell gap="lg">
       <SiteHeader brand={t("brand")} />
 
-      <section className="flex flex-col items-start gap-6 py-8 sm:py-16">
-        <span className="rounded-full border border-border bg-card px-3 py-1 text-sm font-medium text-muted-foreground">
+      <section className="flex flex-col items-start gap-4 py-4 sm:py-8">
+        <span className="rounded-full border border-border bg-card px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
           {t("eyebrow")}
         </span>
-        <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">
+        <h1 className="max-w-3xl text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
           {t("title")}
         </h1>
-        <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+        <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
           {t("subtitle")}
         </p>
-        <div className="mt-2 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-1 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/industry-analysis"
-            className="flex h-12 items-center justify-center gap-2 rounded-full bg-foreground px-6 font-medium text-background transition-colors hover:opacity-90"
+            className="flex h-10 items-center justify-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background transition-colors hover:opacity-90"
           >
             {t("cta")}
-            <ArrowRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden />
+            <ArrowRight className="h-3.5 w-3.5 rtl:-scale-x-100" aria-hidden />
           </Link>
         </div>
       </section>
 
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {features.map(({ icon: Icon, key, href }) => {
           const card = (
-            <div className="flex h-full flex-col gap-3 rounded-3xl border border-border bg-card p-6 transition-colors hover:border-foreground/20">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted text-foreground">
-                <Icon className="h-5 w-5" aria-hidden />
+            <div className="flex h-full flex-col gap-2.5 rounded-2xl border border-border bg-card p-4 transition-colors hover:border-foreground/20">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-muted text-foreground">
+                <Icon className="h-4 w-4" aria-hidden />
               </span>
-              <h2 className="text-lg font-semibold tracking-tight">
+              <h2 className="text-base font-semibold tracking-tight">
                 {t(`features.${key}.title`)}
               </h2>
               <p className="text-sm leading-relaxed text-muted-foreground">

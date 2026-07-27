@@ -124,8 +124,8 @@ export function DemandDashboard({
   ];
 
   return (
-    <div className="grid items-start gap-8 lg:grid-cols-[minmax(15rem,17.5rem)_minmax(0,1fr)]">
-      <aside className="relative z-20 lg:sticky lg:top-16 lg:self-start">
+    <div className="grid items-start gap-6 lg:grid-cols-[minmax(13rem,15rem)_minmax(0,1fr)]">
+      <aside className="relative z-20 lg:sticky lg:top-14 lg:self-start">
         <FilterBar
           locale={locale}
           filters={filters}
@@ -134,10 +134,10 @@ export function DemandDashboard({
         />
       </aside>
 
-      <div className="flex min-w-0 flex-col gap-12">
-        <section className="flex flex-col gap-4">
+      <div className="flex min-w-0 flex-col gap-8">
+        <section className="flex flex-col gap-3">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <h2 className="text-xl font-semibold tracking-tight">
+            <h2 className="text-lg font-semibold tracking-tight">
               {periodLabel}
             </h2>
             <p className="text-sm text-muted-foreground">
@@ -147,13 +147,13 @@ export function DemandDashboard({
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-6">
             {stats.map((stat) => (
               <div
                 key={stat.key}
-                className="flex flex-col justify-between gap-3 rounded-2xl border border-border bg-card p-4"
+                className="flex flex-col justify-between gap-2 rounded-xl border border-border bg-card p-3"
               >
-                <div className="text-2xl font-semibold tracking-tight tabular-nums">
+                <div className="text-xl font-semibold tracking-tight tabular-nums">
                   {stat.value}
                 </div>
                 <div>
@@ -172,9 +172,9 @@ export function DemandDashboard({
           </div>
         </section>
 
-        <section className="flex flex-col gap-4">
+        <section className="flex flex-col gap-3">
           <div>
-            <h2 className="text-xl font-semibold tracking-tight">
+            <h2 className="text-lg font-semibold tracking-tight">
               {t("mapTitle")}
             </h2>
             <p className="text-sm text-muted-foreground">
@@ -184,13 +184,13 @@ export function DemandDashboard({
           <DemandMap
             locale={locale}
             cities={data.cities}
-            className="h-[min(56vh,28rem)] w-full"
+            className="h-[min(48vh,22rem)] w-full"
           />
         </section>
 
-        <section className="flex flex-col gap-4">
+        <section className="flex flex-col gap-3">
           <div>
-            <h2 className="text-xl font-semibold tracking-tight">
+            <h2 className="text-lg font-semibold tracking-tight">
               {t("insightsTitle")}
             </h2>
             <p className="text-sm text-muted-foreground">
@@ -229,7 +229,7 @@ export function DemandDashboard({
           <ModeSplitCard locale={locale} modes={data.modeSplit} />
         </section>
 
-        <section className="grid gap-6 lg:grid-cols-2">
+        <section className="grid gap-4 lg:grid-cols-2">
           <RankPanel
             locale={locale}
             title={isImport ? t("originsTitle") : t("destinationsTitle")}
@@ -252,7 +252,7 @@ export function DemandDashboard({
           />
         </section>
 
-        <section className="grid gap-6 lg:grid-cols-2">
+        <section className="grid gap-4 lg:grid-cols-2">
           <RankPanel
             locale={locale}
             title={t("hsTitle")}
