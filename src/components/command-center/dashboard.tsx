@@ -217,7 +217,8 @@ export function CommandCenterDashboard({
         />
       </section>
 
-      <section className="grid gap-4 xl:grid-cols-[minmax(0,.8fr)_minmax(0,1.6fr)_minmax(0,.9fr)]">
+      <section className="grid gap-4 xl:grid-cols-12">
+        <div className="xl:col-span-3">
         <Panel title={t("highlights.title")} subtitle={t("highlights.subtitle")}>
           {data.highlights.length === 0 ? (
             <EmptyCopy>{t("empty.highlights")}</EmptyCopy>
@@ -254,7 +255,9 @@ export function CommandCenterDashboard({
             </div>
           )}
         </Panel>
+        </div>
 
+        <div className="xl:col-span-6">
         <Panel title={t("map.title")} subtitle={t("map.subtitle")}>
           <NationalGapMap
             locale={locale}
@@ -286,8 +289,9 @@ export function CommandCenterDashboard({
             </div>
           )}
         </Panel>
+        </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 xl:col-span-3">
           <Panel
             title={t("readiness.title")}
             subtitle={t("readiness.subtitle")}
