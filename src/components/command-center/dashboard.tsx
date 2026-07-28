@@ -261,7 +261,7 @@ export function CommandCenterDashboard({
             filters={data.filters}
             points={data.mapPoints}
             selection={data.mapSelection}
-            className="min-h-[28rem]"
+            className="h-[min(55vh,28rem)] w-full"
           />
 
           {data.mapSelection && (

@@ -57,44 +57,56 @@ export function NationalGapMap({
     [resolvedTheme]
   );
 
-  const activePoint = selection?.kind === "city"
-    ? points.find((point) => point.cityId === selection.id) ?? null
-    : null;
+  const activePoint =
+    selection?.kind === "city"
+      ? (points.find((point) => point.cityId === selection.id) ?? null)
+      : null;
 
   const updateFilters = (next: Partial<CommandCenterFilters>) => {
     const query = commandCenterQuery({ ...filters, ...next });
-    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    router.replace(query ? `${pathname}?${query}` : pathname, {
+      scroll: false,
+    });
   };
 
   if (!MAPBOX_TOKEN) {
     return (
-      <div
-        className={cn(
-          "flex min-h-80 items-center justify-center rounded-2xl border border-dashed border-border bg-muted/40 p-6 text-center text-sm text-muted-foreground",
-          className
-        )}
-      >
-        {t("map.tokenMissing")}
+      <div className="flex flex-col gap-3">
+        <div
+          className={cn(
+            "flex items-center justify-center rounded-2xl border border-dashed border-border bg-muted/40 p-6 text-center text-sm text-muted-foreground",
+            className
+          )}
+        >
+          {t("map.tokenMissing")}
+        </div>
       </div>
     );
   }
 
   if (points.length === 0) {
     return (
-      <div
-        className={cn(
-          "flex min-h-80 items-center justify-center rounded-2xl border border-dashed border-border bg-muted/40 p-6 text-center text-sm text-muted-foreground",
-          className
-        )}
-      >
-        {t("empty.map")}
+      <div className="flex flex-col gap-3">
+        <div
+          className={cn(
+            "flex items-center justify-center rounded-2xl border border-dashed border-border bg-muted/40 p-6 text-center text-sm text-muted-foreground",
+            className
+          )}
+        >
+          {t("empty.map")}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className={cn("flex flex-col gap-3", className)}>
-      <div className="relative overflow-hidden rounded-2xl border border-border">
+    <div className="flex flex-col gap-3">
+      <div
+        className={cn(
+          "overflow-hidden rounded-2xl border border-border",
+          className
+        )}
+      >
         <Map
           mapboxAccessToken={MAPBOX_TOKEN}
           initialViewState={SAUDI_VIEW}
@@ -102,7 +114,9 @@ export function NationalGapMap({
           style={{ width: "100%", height: "100%" }}
           attributionControl={false}
           reuseMaps
-          onClick={() => updateFilters({ region: "all", industrialCity: "all" })}
+          onClick={() =>
+            updateFilters({ region: "all", industrialCity: "all" })
+          }
         >
           <NavigationControl position="top-right" showCompass={false} />
 
@@ -123,10 +137,12 @@ export function NationalGapMap({
               <button
                 type="button"
                 aria-label={nameOf(locale, point.city)}
+                title={nameOf(locale, point.city)}
                 className={cn(
                   "h-4 w-4 rounded-full border-2 border-background shadow-md transition-transform hover:scale-110",
                   pickTone(point.severityScore),
-                  activePoint?.cityId === point.cityId && "scale-110 ring-2 ring-foreground/30"
+                  activePoint?.cityId === point.cityId &&
+                    "scale-110 ring-2 ring-foreground/30"
                 )}
               />
             </Marker>
@@ -143,8 +159,12 @@ export function NationalGapMap({
               className="[&_.mapboxgl-popup-content]:rounded-xl [&_.mapboxgl-popup-content]:border [&_.mapboxgl-popup-content]:border-border [&_.mapboxgl-popup-content]:bg-card [&_.mapboxgl-popup-content]:p-3 [&_.mapboxgl-popup-content]:shadow-lg [&_.mapboxgl-popup-tip]:hidden"
             >
               <div className="flex min-w-[12rem] flex-col gap-1 text-sm">
-                <span className="font-semibold">{nameOf(locale, activePoint.city)}</span>
-                <span className="text-muted-foreground">{nameOf(locale, activePoint.region)}</span>
+                <span className="font-semibold">
+                  {nameOf(locale, activePoint.city)}
+                </span>
+                <span className="text-muted-foreground">
+                  {nameOf(locale, activePoint.region)}
+                </span>
                 <span className="text-xs text-muted-foreground">
                   {pickLabel(activePoint.severityScore, t)}
                 </span>
@@ -156,8 +176,14 @@ export function NationalGapMap({
 
       <div className="flex flex-wrap gap-3 rounded-2xl border border-border bg-card p-3 text-xs text-muted-foreground">
         <LegendDot className="bg-rose-500" label={t("map.legend.highGap")} />
-        <LegendDot className="bg-amber-500" label={t("map.legend.moderateGap")} />
-        <LegendDot className="bg-emerald-500" label={t("map.legend.strongCoverage")} />
+        <LegendDot
+          className="bg-amber-500"
+          label={t("map.legend.moderateGap")}
+        />
+        <LegendDot
+          className="bg-emerald-500"
+          label={t("map.legend.strongCoverage")}
+        />
       </div>
     </div>
   );
