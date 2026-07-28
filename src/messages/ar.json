@@ -156,6 +156,13 @@
       "air": "جوي"
     },
 
+    "shipmentTitle": "متوسط الشحنة",
+    "shipmentSubtitle": "متوسط الوزن الصافي لكل بيان جمركي",
+    "shipmentPerDeclaration": "لكل بيان",
+    "shipmentTotal": "إجمالي الوزن",
+    "shipmentReach": "انتشار الشبكة",
+    "shipmentReachValue": "{partners} شريكًا · {cities} مدينة",
+
     "profileSubtitle": "المرتبة {rank} من {total} شريكًا · {share} من وزن الشبكة · {period}",
     "profileImports": "الواردات منها",
     "profileExports": "الصادرات إليها",

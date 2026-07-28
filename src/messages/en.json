@@ -156,6 +156,13 @@
       "air": "Air"
     },
 
+    "shipmentTitle": "Average consignment",
+    "shipmentSubtitle": "Mean net weight per customs declaration",
+    "shipmentPerDeclaration": "per declaration",
+    "shipmentTotal": "Total weight",
+    "shipmentReach": "Network reach",
+    "shipmentReachValue": "{partners} partners · {cities} cities",
+
     "profileSubtitle": "Rank {rank} of {total} partners · {share} of network weight · {period}",
     "profileImports": "Imported from",
     "profileExports": "Exported to",

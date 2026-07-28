@@ -15,6 +15,7 @@ import { RankPanel } from "./rank-panel";
 import {
   ConcentrationCard,
   ModeSplitCard,
+  ShipmentCard,
   TradeBalanceCard,
 } from "./structure-cards";
 import { TrendChart } from "./trend-chart";
@@ -216,7 +217,7 @@ export function DemandDashboard({
           flow={filters.flow}
         />
 
-        <section className="grid gap-4 lg:grid-cols-3">
+        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <ConcentrationCard
             locale={locale}
             concentration={data.concentration}
@@ -227,9 +228,17 @@ export function DemandDashboard({
             exports={data.exportTotals}
           />
           <ModeSplitCard locale={locale} modes={data.modeSplit} />
+          <ShipmentCard
+            locale={locale}
+            avgKg={data.avgShipmentKg}
+            declarations={headline.current.declarations}
+            totalKg={headline.current.kg}
+            partners={data.activeCountries}
+            cities={data.activeCities}
+          />
         </section>
 
-        <section className="grid gap-4 lg:grid-cols-2">
+        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <RankPanel
             locale={locale}
             title={isImport ? t("originsTitle") : t("destinationsTitle")}
@@ -250,9 +259,6 @@ export function DemandDashboard({
             rows={data.cities.slice(0, 12)}
             accent="sky"
           />
-        </section>
-
-        <section className="grid gap-4 lg:grid-cols-2">
           <RankPanel
             locale={locale}
             title={t("hsTitle")}

@@ -202,6 +202,6 @@ export function InsightGrid({
   }
 
   return (
-    <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{cards}</ul>
+    <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">{cards}</ul>
   );
 }

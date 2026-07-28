@@ -287,6 +287,60 @@ export function ModeSplitCard({
   );
 }
 
+export function ShipmentCard({
+  locale,
+  avgKg,
+  declarations,
+  totalKg,
+  partners,
+  cities,
+}: {
+  locale: Locale;
+  avgKg: number;
+  declarations: number;
+  totalKg: number;
+  partners: number;
+  cities: number;
+}) {
+  const t = useTranslations("DemandPage");
+  const fmt = useDemandFormat(locale);
+
+  return (
+    <Card title={t("shipmentTitle")} subtitle={t("shipmentSubtitle")}>
+      <div className="flex items-baseline gap-2">
+        <span className="text-3xl font-semibold tabular-nums">
+          {t("weightT", { value: fmt.decimal.format(avgKg / 1000) })}
+        </span>
+        <span className="text-sm font-medium text-muted-foreground">
+          {t("shipmentPerDeclaration")}
+        </span>
+      </div>
+
+      <dl className="flex flex-col gap-2 text-sm">
+        <div className="flex items-baseline justify-between gap-3">
+          <dt className="text-muted-foreground">{t("statDeclarations")}</dt>
+          <dd className="font-semibold tabular-nums">
+            {fmt.integer.format(declarations)}
+          </dd>
+        </div>
+        <div className="flex items-baseline justify-between gap-3">
+          <dt className="text-muted-foreground">{t("shipmentTotal")}</dt>
+          <dd className="font-semibold tabular-nums">{fmt.weight(totalKg)}</dd>
+        </div>
+        <div className="flex items-baseline justify-between gap-3 border-t border-border pt-2">
+          <dt className="text-muted-foreground">{t("shipmentReach")}</dt>
+          <dd className="font-semibold tabular-nums">
+            {t("shipmentReachValue", {
+              partners: fmt.integer.format(partners),
+              cities: fmt.integer.format(cities),
+            })}
+          </dd>
+        </div>
+      </dl>
+    </Card>
+  );
+}
+
 function Legend({
   color,
   label,
