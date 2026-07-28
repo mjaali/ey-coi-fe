@@ -44,6 +44,10 @@
       "demand": {
         "title": "تحليل الطلب",
         "description": "تابع طلب التجارة الجمركية إلى مدن مدن — وزن الواردات ومصادر المنشأ وفصول المنتجات والاتجاهات الشهرية."
+      },
+      "gapAnalysis": {
+        "title": "تحليل الفجوات",
+        "description": "تابع الفجوات التصنيعية وفرص التوطين والجاهزية الإقليمية وأولويات العمل الصناعي."
       }
     },
     "footer": "مدن — مركز الذكاء الصناعي"
@@ -59,7 +63,6 @@
     "weightKt": "{value} ألف طن",
     "weightT": "{value} طن",
     "declarationsCount": "{count} بيان",
-
     "filtersTitle": "عوامل التصفية",
     "flowFilter": "الاتجاه",
     "flowImport": "الواردات",
@@ -73,16 +76,13 @@
     "periodAll": "كل الفترات",
     "periodTtm": "آخر 12 شهرًا",
     "periodPartialYear": "{year} ({from}–{to})",
-
     "mapTitle": "وزن التجارة حسب المدينة",
     "mapSubtitleImport": "حجم العلامة يعكس وزن الشحنات الواردة عبر المدن الصناعية في مدن للتحديد الحالي.",
     "mapSubtitleExport": "حجم العلامة يعكس وزن الشحنات الصادرة عبر المدن الصناعية في مدن للتحديد الحالي.",
     "mapTokenMissing": "أضف NEXT_PUBLIC_MAPBOX_TOKEN إلى .env.local لتفعيل الخريطة.",
     "mapEmpty": "لا توجد مدن مُحدَّدة الموقع لهذا التحديد.",
-
     "comparisonBasis": "مقارنةً بـ {period}",
     "comparisonNone": "لا تتوفر فترة سابقة للمقارنة",
-
     "statDeclarations": "البيانات الجمركية",
     "statImportWeight": "وزن الواردات",
     "statExportWeight": "وزن الصادرات",
@@ -93,7 +93,6 @@
     "statDestinations": "دول الوجهة",
     "statNetworkShare": "الحصة من وزن الشبكة",
     "statCities": "المدن الصناعية",
-
     "insightsTitle": "ما تكشفه البيانات",
     "insightsSubtitle": "مؤشرات مستخلصة تلقائيًا من التحديد الحالي.",
     "insightRankKicker": "ترتيب الشريك",
@@ -122,12 +121,10 @@
     "insightImportersKicker": "المنشآت النشطة",
     "insightImportersBody": "قدّمت {count} منشأة مسجلة بيانات جمركية في هذه الفترة.",
     "insightImportersBodyDelta": "قدّمت {count} منشأة مسجلة بيانات جمركية، بتغير {delta} مقارنةً بفترة المقارنة.",
-
     "trendTitleImport": "وزن الواردات الشهري",
     "trendTitleExport": "وزن الصادرات الشهري",
     "trendSubtitle": "صافي الوزن لكل شهر، مع تراكب فترة المقارنة.",
     "legendCurrent": "الفترة المحددة",
-
     "concentrationTitle": "تركّز مصادر التوريد",
     "concentrationSubtitleCountry": "مؤشر هيرفندال-هيرشمان (HHI) عبر الدول الشريكة",
     "concentrationSubtitleChapter": "مؤشر هيرفندال-هيرشمان (HHI) عبر فصول المنتجات",
@@ -141,13 +138,11 @@
     "concentrationTopShare": "حصة أكبر {count}",
     "concentrationMembersCountry": "الدول ذات النشاط",
     "concentrationMembersChapter": "فصول المنتجات",
-
     "balanceTitle": "الميزان التجاري",
     "balanceSubtitle": "وزن الواردات مقابل الصادرات لهذا التحديد",
     "balanceSurplus": "فائض تصديري",
     "balanceDeficit": "عجز استيرادي",
     "balanceCoverage": "تغطية الصادرات للواردات",
-
     "modeTitle": "وسيلة النقل",
     "modeSubtitle": "توزيع الوزن بين المنافذ البحرية والبرية والجوية",
     "mode": {
@@ -155,21 +150,18 @@
       "land": "بري",
       "air": "جوي"
     },
-
     "shipmentTitle": "متوسط الشحنة",
     "shipmentSubtitle": "متوسط الوزن الصافي لكل بيان جمركي",
     "shipmentPerDeclaration": "لكل بيان",
     "shipmentTotal": "إجمالي الوزن",
     "shipmentReach": "انتشار الشبكة",
     "shipmentReachValue": "{partners} شريكًا · {cities} مدينة",
-
     "profileSubtitle": "المرتبة {rank} من {total} شريكًا · {share} من وزن الشبكة · {period}",
     "profileImports": "الواردات منها",
     "profileExports": "الصادرات إليها",
     "profileImporters": "المنشآت المتعاملة",
     "profileTopProducts": "أبرز المنتجات",
     "profileTopCities": "أبرز المدن الصناعية",
-
     "originsTitle": "دول المنشأ",
     "originsSubtitle": "اختر دولة لتصفية الصفحة بالكامل",
     "destinationsTitle": "دول الوجهة",
@@ -183,7 +175,6 @@
     "portsSubtitle": "المنافذ التي تتعامل مع أكبر حصة من الوزن الوارد",
     "portsTitleExport": "منافذ الخروج",
     "portsSubtitleExport": "المنافذ التي تتعامل مع أكبر حصة من الوزن الصادر",
-
     "sourceNote": "استنادًا إلى {count} بيانًا جمركيًا (وارد وصادر) مرتبطة بالمدن الصناعية في مدن."
   },
   "IndustriesPage": {
@@ -219,5 +210,129 @@
     "unitKm": "كم",
     "tokenMissing": "أضف NEXT_PUBLIC_MAPBOX_TOKEN إلى .env.local لتفعيل الخريطة.",
     "sourceNote": "مواقع المدن تقريبية. أعداد المصانع على العلامات توضيحية حتى يتم ربط بيانات نظم المعلومات الجغرافية المباشرة."
+  },
+  "GapAnalysisPage": {
+    "brand": "مدن",
+    "backToIntro": "العودة إلى النظرة العامة",
+    "title": "تحليل الفجوات",
+    "subtitle": "رؤية وطنية لأداء التصنيع والفجوات التجارية وفرص التوطين والجاهزية الإقليمية وأولويات العمل الصناعي.",
+    "loading": "جارٍ التحديث",
+    "sourceNote": "يعتمد هذا العرض حاليًا على مجموعات البيانات الصناعية الحالية في التطبيق عبر موائم مؤقت لتحليل الفجوات إلى حين توفر خدمة فجوات صناعية مخصصة.",
+    "comparisonUnavailable": "لا تتوفر مقارنة سابقة",
+    "comparisonDelta": "{value} مقارنة بالفترة السابقة",
+    "filtersTitle": "عوامل التصفية",
+    "filters": {
+      "year": "السنة",
+      "region": "المنطقة",
+      "industrialCity": "المدينة الصناعية",
+      "sector": "القطاع",
+      "productCategory": "فئة المنتج",
+      "localizationPotential": "إمكانات التوطين"
+    },
+    "localizationPotential": {
+      "all": "الكل",
+      "high": "مرتفعة",
+      "medium": "متوسطة",
+      "low": "منخفضة"
+    },
+    "kpis": {
+      "totalExportValue": "إجمالي قيمة الصادرات",
+      "totalManufacturingValue": "إجمالي قيمة التصنيع",
+      "totalImportValue": "إجمالي قيمة الواردات",
+      "manufacturingGaps": "الفجوات التصنيعية",
+      "localizationScore": "درجة التوطين",
+      "priorityOpportunities": "الفرص ذات الأولوية"
+    },
+    "pulse": {
+      "title": "النبض الصناعي المباشر",
+      "subtitle": "قراءة وطنية لصحة الصناعة من نفس الحالة التحليلية المشتركة.",
+      "metric": "الاكتفاء الصناعي",
+      "context": "حصة الطلب المحلي التي تتم تلبيتها حاليًا عبر التصنيع المحلي.",
+      "localizationPotential": "إمكانات التوطين",
+      "exportGrowthOpportunity": "فرصة نمو الصادرات",
+      "sectorsCount": "{count} قطاعًا"
+    },
+    "highlights": {
+      "title": "أبرز المؤشرات",
+      "subtitle": "إشارات مولدة تلقائيًا من التحديد الحالي."
+    },
+    "map": {
+      "title": "خريطة الفجوة التصنيعية الوطنية",
+      "subtitle": "المدن الصناعية في المملكة ملوّنة بحسب شدة الفجوة وسياق الجاهزية.",
+      "tokenMissing": "أضف NEXT_PUBLIC_MAPBOX_TOKEN إلى .env.local لتفعيل الخريطة.",
+      "legend": {
+        "highGap": "فجوة مرتفعة",
+        "moderateGap": "فجوة متوسطة",
+        "strongCoverage": "تغطية قوية"
+      },
+      "selection": {
+        "gapSeverity": "شدة الفجوة",
+        "output": "المخرجات التصنيعية",
+        "opportunity": "قيمة الفرصة"
+      }
+    },
+    "readiness": {
+      "title": "الجاهزية الصناعية الإقليمية",
+      "subtitle": "ترتيب المناطق حسب الجاهزية الصناعية وعمق الشبكة."
+    },
+    "criticalGaps": {
+      "title": "أهم الفجوات الحرجة",
+      "subtitle": "معاينة تنفيذية لأكثر الصناعات اعتمادًا على الواردات."
+    },
+    "topGaps": {
+      "title": "أكبر الفجوات التصنيعية",
+      "subtitle": "الصناعات التي ما زال الاعتماد فيها على الواردات مرتفعًا والتغطية المحلية ضعيفة.",
+      "importGap": "فجوة الواردات",
+      "localCoverage": "التغطية المحلية"
+    },
+    "opportunities": {
+      "title": "أفضل فرص التوطين",
+      "subtitle": "أعلى فرص التوطين قيمة وفق عوامل التصفية الحالية."
+    },
+    "matrix": {
+      "title": "مصفوفة تحليل الفجوات",
+      "subtitle": "عرض مختصر لحالة التجارة والتصنيع على مستوى المنتجات.",
+      "page": "الصفحة {current} من {total}",
+      "columns": {
+        "productCategory": "فئة المنتج",
+        "sector": "القطاع",
+        "exported": "يتم تصديره",
+        "manufacturedLocally": "يُصنّع محليًا",
+        "imported": "يتم استيراده",
+        "gapStatus": "حالة الفجوة"
+      }
+    },
+    "gapStatus": {
+      "exportedManufactured": "مُصدَّر ومُصنَّع",
+      "manufacturedNotExported": "مُصنَّع وغير مُصدَّر",
+      "importedNotManufactured": "مُستورد وغير مُصنَّع",
+      "emerging": "ناشئ"
+    },
+    "engine": {
+      "title": "محرك تحديد الفرص",
+      "subtitle": "أعلى الفرص ترتيبًا استنادًا إلى طبقة التقييم الحالية لتحليل الفجوات.",
+      "rank": "الترتيب",
+      "industry": "الصناعة",
+      "score": "درجة الفرصة",
+      "reason": "السبب"
+    },
+    "actions": {
+      "previous": "السابق",
+      "next": "التالي"
+    },
+    "severity": {
+      "critical": "حرجة",
+      "high": "مرتفعة",
+      "moderate": "متوسطة"
+    },
+    "empty": {
+      "map": "لا تتوفر بيانات جغرافية للفجوات التصنيعية وفق عوامل التصفية المحددة.",
+      "highlights": "لا تتوفر مؤشرات لهذه التحديدات.",
+      "criticalGaps": "لا تتوفر فجوات حرجة لهذه التحديدات.",
+      "gaps": "لا تتوفر بيانات فجوات تصنيعية لهذه التحديدات.",
+      "opportunities": "لا تتوفر فرص توطين لهذه التحديدات.",
+      "matrix": "لا تتوفر صفوف في المصفوفة لهذه التحديدات.",
+      "engine": "لا تتوفر فرص صناعية لهذه التحديدات."
+    }
   }
 }

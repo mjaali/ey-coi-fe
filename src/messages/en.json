@@ -44,6 +44,10 @@
       "demand": {
         "title": "Demand analysis",
         "description": "Track customs trade demand into MODON cities — import weight, origins, product chapters, and monthly trends."
+      },
+      "gapAnalysis": {
+        "title": "Gap analysis",
+        "description": "Track manufacturing gaps, localization opportunities, regional readiness, and prioritized industrial action."
       }
     },
     "footer": "MODON — Center of Intelligence"
@@ -59,7 +63,6 @@
     "weightKt": "{value} kt",
     "weightT": "{value} t",
     "declarationsCount": "{count} declarations",
-
     "filtersTitle": "Filters",
     "flowFilter": "Flow",
     "flowImport": "Imports",
@@ -73,16 +76,13 @@
     "periodAll": "All time",
     "periodTtm": "Last 12 months",
     "periodPartialYear": "{year} ({from}–{to})",
-
     "mapTitle": "Trade weight by city",
     "mapSubtitleImport": "Marker size reflects inbound cargo weight across MODON industrial cities for the current selection.",
     "mapSubtitleExport": "Marker size reflects outbound cargo weight across MODON industrial cities for the current selection.",
     "mapTokenMissing": "Add NEXT_PUBLIC_MAPBOX_TOKEN to .env.local to enable the map.",
     "mapEmpty": "No mapped cities for this selection.",
-
     "comparisonBasis": "Compared with {period}",
     "comparisonNone": "No earlier period available for comparison",
-
     "statDeclarations": "Declarations",
     "statImportWeight": "Import weight",
     "statExportWeight": "Export weight",
@@ -93,7 +93,6 @@
     "statDestinations": "Destination countries",
     "statNetworkShare": "Share of network weight",
     "statCities": "Industrial cities",
-
     "insightsTitle": "What the data says",
     "insightsSubtitle": "Signals derived automatically from the current selection.",
     "insightRankKicker": "Partner standing",
@@ -122,12 +121,10 @@
     "insightImportersKicker": "Active businesses",
     "insightImportersBody": "{count} registered businesses filed declarations in this period.",
     "insightImportersBodyDelta": "{count} registered businesses filed declarations, {delta} against the comparison period.",
-
     "trendTitleImport": "Monthly import weight",
     "trendTitleExport": "Monthly export weight",
     "trendSubtitle": "Net weight per month, with the comparison period overlaid.",
     "legendCurrent": "Selected period",
-
     "concentrationTitle": "Supply concentration",
     "concentrationSubtitleCountry": "Herfindahl–Hirschman index across partner countries",
     "concentrationSubtitleChapter": "Herfindahl–Hirschman index across product chapters",
@@ -141,13 +138,11 @@
     "concentrationTopShare": "Top {count} share",
     "concentrationMembersCountry": "Countries with trade",
     "concentrationMembersChapter": "Product chapters",
-
     "balanceTitle": "Trade balance",
     "balanceSubtitle": "Import against export weight for this selection",
     "balanceSurplus": "Export surplus",
     "balanceDeficit": "Import deficit",
     "balanceCoverage": "Export coverage of imports",
-
     "modeTitle": "Transport mode",
     "modeSubtitle": "Weight split across sea, land and air gateways",
     "mode": {
@@ -155,21 +150,18 @@
       "land": "Land",
       "air": "Air"
     },
-
     "shipmentTitle": "Average consignment",
     "shipmentSubtitle": "Mean net weight per customs declaration",
     "shipmentPerDeclaration": "per declaration",
     "shipmentTotal": "Total weight",
     "shipmentReach": "Network reach",
     "shipmentReachValue": "{partners} partners · {cities} cities",
-
     "profileSubtitle": "Rank {rank} of {total} partners · {share} of network weight · {period}",
     "profileImports": "Imported from",
     "profileExports": "Exported to",
     "profileImporters": "Businesses trading",
     "profileTopProducts": "Top products",
     "profileTopCities": "Top industrial cities",
-
     "originsTitle": "Origin countries",
     "originsSubtitle": "Select a country to filter the whole page",
     "destinationsTitle": "Destination countries",
@@ -183,7 +175,6 @@
     "portsSubtitle": "Gateways handling the largest share of inbound weight",
     "portsTitleExport": "Ports of exit",
     "portsSubtitleExport": "Gateways handling the largest share of outbound weight",
-
     "sourceNote": "Based on {count} customs declarations (imports and exports) linked to MODON industrial cities."
   },
   "IndustriesPage": {
@@ -219,5 +210,129 @@
     "unitKm": "km",
     "tokenMissing": "Add NEXT_PUBLIC_MAPBOX_TOKEN to .env.local to enable the map.",
     "sourceNote": "City locations are approximate. Factory counts shown on markers are illustrative until live GIS data is connected."
+  },
+  "GapAnalysisPage": {
+    "brand": "MODON",
+    "backToIntro": "Back to overview",
+    "title": "Gap Analysis",
+    "subtitle": "A national view of manufacturing performance, trade gaps, localization opportunities, regional readiness, and prioritized industrial action.",
+    "loading": "Updating",
+    "sourceNote": "Current view uses the app's existing industrial datasets, presented through a temporary gap-analysis adapter until a dedicated gap analytics service is available.",
+    "comparisonUnavailable": "No prior comparison available",
+    "comparisonDelta": "{value} vs previous period",
+    "filtersTitle": "Filters",
+    "filters": {
+      "year": "Year",
+      "region": "Region",
+      "industrialCity": "Industrial city",
+      "sector": "Sector",
+      "productCategory": "Product category",
+      "localizationPotential": "Localization potential"
+    },
+    "localizationPotential": {
+      "all": "All",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "kpis": {
+      "totalExportValue": "Total Export Value",
+      "totalManufacturingValue": "Total Manufacturing Value",
+      "totalImportValue": "Total Import Value",
+      "manufacturingGaps": "Manufacturing Gaps",
+      "localizationScore": "Localization Score",
+      "priorityOpportunities": "Priority Opportunities"
+    },
+    "pulse": {
+      "title": "Live Industrial Pulse",
+      "subtitle": "National industrial health from the current shared analytics state.",
+      "metric": "Industrial Self-Sufficiency",
+      "context": "Share of domestic demand currently supported by local manufacturing.",
+      "localizationPotential": "Localization Potential",
+      "exportGrowthOpportunity": "Export Growth Opportunity",
+      "sectorsCount": "{count} sectors"
+    },
+    "highlights": {
+      "title": "Key Highlights",
+      "subtitle": "Automatically generated signals from the current selection."
+    },
+    "map": {
+      "title": "National Manufacturing Gap Map",
+      "subtitle": "Saudi industrial cities colored by relative gap severity and readiness context.",
+      "tokenMissing": "Add NEXT_PUBLIC_MAPBOX_TOKEN to .env.local to enable the map.",
+      "legend": {
+        "highGap": "High Gap",
+        "moderateGap": "Moderate Gap",
+        "strongCoverage": "Strong Coverage"
+      },
+      "selection": {
+        "gapSeverity": "Gap Severity",
+        "output": "Manufacturing Output",
+        "opportunity": "Opportunity Value"
+      }
+    },
+    "readiness": {
+      "title": "Regional Industrial Readiness",
+      "subtitle": "Regions ranked by industrial preparedness and network depth."
+    },
+    "criticalGaps": {
+      "title": "Top Critical Gaps",
+      "subtitle": "Executive preview of the most urgent import-dependent industries."
+    },
+    "topGaps": {
+      "title": "Top Manufacturing Gaps",
+      "subtitle": "Industries where import reliance remains high and local coverage is weak.",
+      "importGap": "Import Gap",
+      "localCoverage": "Local Coverage"
+    },
+    "opportunities": {
+      "title": "Top Localization Opportunities",
+      "subtitle": "Highest-value localization candidates under the current filters."
+    },
+    "matrix": {
+      "title": "Gap Analysis Matrix",
+      "subtitle": "Compact product-level view of trade and manufacturing status.",
+      "page": "Page {current} of {total}",
+      "columns": {
+        "productCategory": "Product Category",
+        "sector": "Sector",
+        "exported": "Exported",
+        "manufacturedLocally": "Manufactured Locally",
+        "imported": "Imported",
+        "gapStatus": "Gap Status"
+      }
+    },
+    "gapStatus": {
+      "exportedManufactured": "Exported & Manufactured",
+      "manufacturedNotExported": "Manufactured, Not Exported",
+      "importedNotManufactured": "Imported, Not Manufactured",
+      "emerging": "Emerging"
+    },
+    "engine": {
+      "title": "Opportunity Identification Engine",
+      "subtitle": "Top ranked opportunities based on the current gap-analysis scoring layer.",
+      "rank": "Rank",
+      "industry": "Industry",
+      "score": "Opportunity Score",
+      "reason": "Reason"
+    },
+    "actions": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "severity": {
+      "critical": "Critical",
+      "high": "High",
+      "moderate": "Moderate"
+    },
+    "empty": {
+      "map": "No manufacturing gap geography is available for the selected filters.",
+      "highlights": "No highlights are available for the selected filters.",
+      "criticalGaps": "No critical gaps are available for the selected filters.",
+      "gaps": "No manufacturing gap data is available for the selected filters.",
+      "opportunities": "No localization opportunities are available for the selected filters.",
+      "matrix": "No matrix rows are available for the selected filters.",
+      "engine": "No industrial opportunities are available for the selected filters."
+    }
   }
 }

@@ -8,7 +8,7 @@ import type { Locale } from "@/i18n/routing";
 import { CountryProfileCard } from "./country-profile-card";
 import { DeltaChip } from "./delta-chip";
 import { DemandMap } from "./demand-map";
-import { FilterBar } from "./filter-bar";
+import { FilterBar } from "@/components/filters/filter-bar";
 import { useDemandFormat } from "./format";
 import { InsightGrid } from "./insight-grid";
 import { RankPanel } from "./rank-panel";

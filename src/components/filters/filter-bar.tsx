@@ -3,6 +3,7 @@
 import { useTransition } from "react";
 import { ArrowDownLeft, ArrowUpRight, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import type {
   CountryOption,
@@ -12,8 +13,8 @@ import type {
 } from "@/lib/customs/demand";
 import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { useDemandFormat } from "@/components/demand/format";
 import { CountryPicker } from "./country-picker";
-import { useDemandFormat } from "./format";
 
 export function FilterBar({
   locale,
@@ -30,12 +31,17 @@ export function FilterBar({
   const fmt = useDemandFormat(locale);
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [pending, startTransition] = useTransition();
 
   /** Filters live in the URL so a view can be shared or bookmarked. */
   const apply = (next: Partial<DemandFilters>) => {
     const merged = { ...filters, ...next };
-    const params = new URLSearchParams();
+    // Preserve unrelated page params (e.g. map geography on Gap Analysis).
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("period");
+    params.delete("country");
+    params.delete("flow");
     if (merged.period !== "all") params.set("period", merged.period);
     if (merged.country) params.set("country", merged.country);
     if (merged.flow !== "import") params.set("flow", merged.flow);

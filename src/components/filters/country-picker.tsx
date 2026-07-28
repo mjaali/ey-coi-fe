@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import type { CountryOption } from "@/lib/customs/demand";
 import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
-import { useDemandFormat } from "./format";
+import { useDemandFormat } from "@/components/demand/format";
 
 /** Strips Arabic diacritics and the definite article so search is forgiving. */
 function normalise(value: string) {

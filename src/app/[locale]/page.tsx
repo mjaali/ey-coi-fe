@@ -3,6 +3,7 @@ import {
   ArrowRight,
   BarChart3,
   Building2,
+  Factory,
   MapPinned,
   TrendingUp,
 } from "lucide-react";
@@ -25,6 +26,11 @@ export default function Home({
   const t = useTranslations("IntroPage");
 
   const features = [
+    {
+      icon: Factory,
+      key: "gapAnalysis" as const,
+      href: "/gap-analysis",
+    },
     { icon: BarChart3, key: "industries" as const, href: "/industry-analysis" },
     { icon: Building2, key: "cities" as const, href: "/map" },
     { icon: MapPinned, key: "network" as const, href: null },

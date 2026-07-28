@@ -470,6 +470,18 @@ export function parseFilters(raw: RawFilters): DemandFilters {
   return { period, country, flow };
 }
 
+/** Shared filter options for any page that reuses the demand FilterBar. */
+export function getDemandFilterOptions(): {
+  periods: PeriodOption[];
+  countries: CountryOption[];
+} {
+  const cube = getCube();
+  return {
+    periods: buildPeriodOptions(cube),
+    countries: buildCountryOptions(cube),
+  };
+}
+
 /* -------------------------------------------------------------------------- */
 /* Insights                                                                     */
 /* -------------------------------------------------------------------------- */
