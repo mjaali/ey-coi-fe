@@ -11,7 +11,7 @@ import { DemandMap } from "./demand-map";
 import { FilterBar } from "@/components/filters/filter-bar";
 import { useDemandFormat } from "./format";
 import { InsightGrid } from "./insight-grid";
-import { RankPanel } from "./rank-panel";
+import { SankeyChart } from "./sankey-chart";
 import {
   ConcentrationCard,
   ModeSplitCard,
@@ -238,44 +238,13 @@ export function DemandDashboard({
           />
         </section>
 
-        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <RankPanel
-            locale={locale}
-            title={isImport ? t("originsTitle") : t("destinationsTitle")}
-            subtitle={
-              isImport ? t("originsSubtitle") : t("destinationsSubtitle")
-            }
-            rows={data.countriesRank}
-            accent="violet"
-            activeCode={filters.country}
-            onSelect={setCountry}
-          />
-          <RankPanel
-            locale={locale}
-            title={t("citiesTitle")}
-            subtitle={
-              isImport ? t("citiesSubtitle") : t("citiesSubtitleExport")
-            }
-            rows={data.cities.slice(0, 12)}
-            accent="sky"
-          />
-          <RankPanel
-            locale={locale}
-            title={t("hsTitle")}
-            subtitle={t("hsSubtitle")}
-            rows={data.chapters}
-            accent="emerald"
-          />
-          <RankPanel
-            locale={locale}
-            title={isImport ? t("portsTitle") : t("portsTitleExport")}
-            subtitle={
-              isImport ? t("portsSubtitle") : t("portsSubtitleExport")
-            }
-            rows={data.ports}
-            accent="amber"
-          />
-        </section>
+        <SankeyChart
+          locale={locale}
+          data={data.sankey}
+          flow={filters.flow}
+          activeCode={filters.country}
+          onSelectCountry={setCountry}
+        />
       </div>
     </div>
   );

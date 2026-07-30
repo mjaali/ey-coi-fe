@@ -175,6 +175,17 @@
     "portsSubtitle": "Gateways handling the largest share of inbound weight",
     "portsTitleExport": "Ports of exit",
     "portsSubtitleExport": "Gateways handling the largest share of outbound weight",
+    "sankeyTitle": "Trade flow",
+    "sankeySubtitleImport": "How inbound weight moves from origin countries through product chapters and ports of entry into industrial cities. Click a country to filter the page.",
+    "sankeySubtitleExport": "How outbound weight moves toward destination countries through product chapters and ports of exit across industrial cities. Click a country to filter the page.",
+    "sankeyColCountryImport": "Origins",
+    "sankeyColCountryExport": "Destinations",
+    "sankeyColChapter": "Products",
+    "sankeyColPortImport": "Entry ports",
+    "sankeyColPortExport": "Exit ports",
+    "sankeyColCity": "Cities",
+    "sankeyHoverNode": "{name}: {weight}",
+    "sankeyHoverLink": "{source} → {target}: {weight}",
     "sourceNote": "Based on {count} customs declarations (imports and exports) linked to MODON industrial cities."
   },
   "IndustriesPage": {

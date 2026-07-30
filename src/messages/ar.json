@@ -175,6 +175,17 @@
     "portsSubtitle": "المنافذ التي تتعامل مع أكبر حصة من الوزن الوارد",
     "portsTitleExport": "منافذ الخروج",
     "portsSubtitleExport": "المنافذ التي تتعامل مع أكبر حصة من الوزن الصادر",
+    "sankeyTitle": "تدفق التجارة",
+    "sankeySubtitleImport": "كيف يتحرك الوزن الوارد من دول المنشأ عبر فصول المنتجات ومنافذ الدخول إلى المدن الصناعية. انقر دولة لتصفية الصفحة.",
+    "sankeySubtitleExport": "كيف يتحرك الوزن الصادر نحو دول الوجهة عبر فصول المنتجات ومنافذ الخروج عبر المدن الصناعية. انقر دولة لتصفية الصفحة.",
+    "sankeyColCountryImport": "المنشأ",
+    "sankeyColCountryExport": "الوجهة",
+    "sankeyColChapter": "المنتجات",
+    "sankeyColPortImport": "منافذ الدخول",
+    "sankeyColPortExport": "منافذ الخروج",
+    "sankeyColCity": "المدن",
+    "sankeyHoverNode": "{name}: {weight}",
+    "sankeyHoverLink": "{source} → {target}: {weight}",
     "sourceNote": "استنادًا إلى {count} بيانًا جمركيًا (وارد وصادر) مرتبطة بالمدن الصناعية في مدن."
   },
   "IndustriesPage": {

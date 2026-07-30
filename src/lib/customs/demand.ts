@@ -10,6 +10,7 @@ import {
 } from "./dictionaries";
 import {
   type Cube,
+  type FlowTable,
   getCube,
   monthIndex,
   monthOf,
@@ -187,6 +188,30 @@ export type CountryProfile = {
   importers: number;
 };
 
+export type SankeyColumn = "country" | "chapter" | "port" | "city";
+
+export type SankeyNode = {
+  id: string;
+  column: SankeyColumn;
+  label: Bilingual;
+  /** ISO code when this is a selectable partner country. */
+  code?: string;
+  flag?: string;
+  kg: number;
+};
+
+export type SankeyLink = {
+  source: string;
+  target: string;
+  kg: number;
+};
+
+export type SankeyData = {
+  nodes: SankeyNode[];
+  links: SankeyLink[];
+  columns: SankeyColumn[];
+};
+
 export type DemandData = {
   filters: DemandFilters;
   period: PeriodOption;
@@ -212,6 +237,7 @@ export type DemandData = {
   cities: RankRow[];
   chapters: RankRow[];
   ports: RankRow[];
+  sankey: SankeyData;
   modeSplit: ModeSplit[];
   concentration: Concentration;
   insights: Insight[];
@@ -395,6 +421,195 @@ function distinctMembers(
 function pctChange(current: number, previous: number | null): number | null {
   if (previous === null || previous <= 0) return null;
   return (current - previous) / previous;
+}
+
+const SANKEY_TOP: Record<SankeyColumn, number> = {
+  country: 8,
+  chapter: 8,
+  port: 6,
+  city: 8,
+};
+
+const OTHER_KEY = "__other__";
+
+function topKeys(totals: Map<string, number>, limit: number): Set<string> {
+  return new Set(
+    [...totals.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, limit)
+      .map(([key]) => key)
+  );
+}
+
+/**
+ * Builds a Country → Chapter → Port → City Sankey from the four-way flow
+ * table. Non-top members collapse into an "Other" bucket so the diagram stays
+ * readable while preserving total weight.
+ */
+function buildSankey(
+  flow: FlowTable,
+  opts: {
+    countryId: number | null;
+    imp: number;
+    cur: Window;
+    otherLabel: Bilingual;
+  }
+): SankeyData {
+  const { countryId, imp, cur, otherLabel } = opts;
+  const includeCountry = countryId === null;
+  const columns: SankeyColumn[] = includeCountry
+    ? ["country", "chapter", "port", "city"]
+    : ["chapter", "port", "city"];
+
+  const countryKg = new Map<string, number>();
+  const chapterKg = new Map<string, number>();
+  const portKg = new Map<string, number>();
+  const cityKg = new Map<string, number>();
+
+  // First pass: totals used to decide which members stay named.
+  for (let r = 0; r < flow.t.length; r++) {
+    if (flow.imp[r] !== imp) continue;
+    if (countryId !== null && flow.country[r] !== countryId) continue;
+    const t = flow.t[r];
+    if (t < cur.from || t > cur.to) continue;
+    const kg = flow.kg[r];
+    if (kg <= 0) continue;
+
+    if (includeCountry) {
+      const c = flow.countries[flow.country[r]];
+      countryKg.set(c, (countryKg.get(c) ?? 0) + kg);
+    }
+    const ch = flow.chapters[flow.chapter[r]];
+    chapterKg.set(ch, (chapterKg.get(ch) ?? 0) + kg);
+    const p = flow.ports[flow.port[r]];
+    portKg.set(p, (portKg.get(p) ?? 0) + kg);
+    const ci = flow.cities[flow.city[r]];
+    cityKg.set(ci, (cityKg.get(ci) ?? 0) + kg);
+  }
+
+  const keep = {
+    country: includeCountry
+      ? topKeys(countryKg, SANKEY_TOP.country)
+      : new Set<string>(),
+    chapter: topKeys(chapterKg, SANKEY_TOP.chapter),
+    port: topKeys(portKg, SANKEY_TOP.port),
+    city: topKeys(cityKg, SANKEY_TOP.city),
+  };
+
+  const bucket = (column: SankeyColumn, raw: string) =>
+    keep[column].has(raw) ? raw : OTHER_KEY;
+
+  const linkKg = new Map<string, number>();
+  const nodeKg = new Map<string, number>();
+
+  const nodeId = (column: SankeyColumn, key: string) => `${column}:${key}`;
+
+  const bumpNode = (column: SankeyColumn, key: string, kg: number) => {
+    const id = nodeId(column, key);
+    nodeKg.set(id, (nodeKg.get(id) ?? 0) + kg);
+  };
+
+  const bumpLink = (
+    sourceCol: SankeyColumn,
+    sourceKey: string,
+    targetCol: SankeyColumn,
+    targetKey: string,
+    kg: number
+  ) => {
+    const key = `${nodeId(sourceCol, sourceKey)}>${nodeId(targetCol, targetKey)}`;
+    linkKg.set(key, (linkKg.get(key) ?? 0) + kg);
+  };
+
+  // Second pass: bucket and accumulate conserved multi-hop flows.
+  for (let r = 0; r < flow.t.length; r++) {
+    if (flow.imp[r] !== imp) continue;
+    if (countryId !== null && flow.country[r] !== countryId) continue;
+    const t = flow.t[r];
+    if (t < cur.from || t > cur.to) continue;
+    const kg = flow.kg[r];
+    if (kg <= 0) continue;
+
+    const chapter = bucket("chapter", flow.chapters[flow.chapter[r]]);
+    const port = bucket("port", flow.ports[flow.port[r]]);
+    const city = bucket("city", flow.cities[flow.city[r]]);
+
+    bumpNode("chapter", chapter, kg);
+    bumpNode("port", port, kg);
+    bumpNode("city", city, kg);
+
+    if (includeCountry) {
+      const country = bucket("country", flow.countries[flow.country[r]]);
+      bumpNode("country", country, kg);
+      bumpLink("country", country, "chapter", chapter, kg);
+    }
+    bumpLink("chapter", chapter, "port", port, kg);
+    bumpLink("port", port, "city", city, kg);
+  }
+
+  const labelFor = (column: SankeyColumn, key: string): SankeyNode => {
+    const id = nodeId(column, key);
+    const kg = nodeKg.get(id) ?? 0;
+
+    if (key === OTHER_KEY) {
+      return { id, column, label: otherLabel, kg };
+    }
+
+    switch (column) {
+      case "country": {
+        const info = countryInfo(key);
+        return {
+          id,
+          column,
+          label: { en: info.en, ar: info.ar },
+          code: info.code,
+          flag: flagEmoji(info),
+          kg,
+        };
+      }
+      case "chapter": {
+        const name = chapterName(key);
+        return {
+          id,
+          column,
+          label: { en: `${key} · ${name.en}`, ar: `${key} · ${name.ar}` },
+          kg,
+        };
+      }
+      case "port": {
+        const info = portInfo(key);
+        return { id, column, label: { en: info.en, ar: info.ar }, kg };
+      }
+      case "city":
+        return { id, column, label: cityName(key), kg };
+    }
+  };
+
+  const nodes: SankeyNode[] = [];
+  for (const column of columns) {
+    const prefix = `${column}:`;
+    const colNodes = [...nodeKg.entries()]
+      .filter(([id]) => id.startsWith(prefix))
+      .map(([id]) => labelFor(column, id.slice(prefix.length)))
+      .filter((n) => n.kg > 0)
+      .sort((a, b) => {
+        // Keep "Other" at the bottom so named leaders stay readable.
+        if (a.id.endsWith(`:${OTHER_KEY}`)) return 1;
+        if (b.id.endsWith(`:${OTHER_KEY}`)) return -1;
+        return b.kg - a.kg;
+      });
+    nodes.push(...colNodes);
+  }
+
+  const nodeSet = new Set(nodes.map((n) => n.id));
+  const links: SankeyLink[] = [...linkKg.entries()]
+    .map(([key, kg]) => {
+      const [source, target] = key.split(">");
+      return { source, target, kg };
+    })
+    .filter((l) => l.kg > 0 && nodeSet.has(l.source) && nodeSet.has(l.target))
+    .sort((a, b) => b.kg - a.kg);
+
+  return { nodes, links, columns };
 }
 
 function toComparison(slot: Slot, hasPrev: boolean): Comparison {
@@ -717,6 +932,16 @@ export function loadDemand(raw: RawFilters): DemandData {
     return { label: { en: info.en, ar: info.ar } };
   }, 10);
 
+  const sankey = buildSankey(cube.flow, {
+    countryId:
+      countryAr === null
+        ? null
+        : (cube.flow.countryIndex.get(countryAr) ?? -1),
+    imp,
+    cur,
+    otherLabel: { en: "Other", ar: "أخرى" },
+  });
+
   /* ---- Modal split ------------------------------------------------------ */
 
   const modeTotals = new Map<PortMode, number>();
@@ -958,6 +1183,7 @@ export function loadDemand(raw: RawFilters): DemandData {
     cities,
     chapters,
     ports,
+    sankey,
     modeSplit,
     concentration,
     insights,
