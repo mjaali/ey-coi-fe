@@ -15,6 +15,15 @@
     "system": "System",
     "auto": "Auto (time of day)"
   },
+  "Auth": {
+    "brand": "MODON",
+    "eyebrow": "Center of Intelligence",
+    "title": "Sign in to continue",
+    "subtitle": "Use your Modon account to access operational intelligence.",
+    "signIn": "Sign in with Modon",
+    "signOut": "Sign out",
+    "account": "Account"
+  },
   "HomePage": {
     "title": "To get started, edit the page.tsx file.",
     "description": "Looking for a starting point or more instructions? Head over to <templates>Templates</templates> or the <learning>Learning</learning> center.",
