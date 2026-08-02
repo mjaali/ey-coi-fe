@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { auth, signIn } from "@/auth";
-import { SiteHeader } from "@/components/layout/site-header";
-import { PageShell } from "@/components/layout/page-shell";
+import { LocaleSwitcher } from "@/components/layout/locale-switcher";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { Button } from "@/components/ui/button";
 import type { Locale } from "@/i18n/routing";
 
@@ -36,32 +36,31 @@ export default async function LoginPage({
   const t = await getTranslations("Auth");
 
   return (
-    <PageShell gap="lg" className="items-center justify-center">
-      <div className="absolute inset-x-0 top-0 px-4 sm:px-6">
-        <SiteHeader brand={t("brand")} showAuth={false} />
+    <div className="relative flex min-h-dvh flex-col items-center justify-center px-4">
+      <div className="absolute end-4 top-4 flex items-center gap-2 sm:end-6 sm:top-6">
+        <ThemeToggle />
+        <LocaleSwitcher />
       </div>
-      <div className="flex w-full max-w-sm flex-col items-center gap-6 text-center">
-        <div className="space-y-2">
-          <p className="text-sm font-medium tracking-wide text-muted-foreground uppercase">
-            {t("eyebrow")}
-          </p>
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+
+      <div className="flex w-full max-w-xs flex-col gap-8">
+        <div className="space-y-1.5 text-center">
+          <h1 className="text-xl font-semibold tracking-tight text-foreground">
             {t("title")}
           </h1>
           <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
         </div>
+
         <form
           action={async () => {
             "use server";
             await signIn("azure-ad", { redirectTo: callbackUrl });
           }}
-          className="w-full"
         >
           <Button type="submit" size="lg" className="w-full">
             {t("signIn")}
           </Button>
         </form>
       </div>
-    </PageShell>
+    </div>
   );
 }

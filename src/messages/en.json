@@ -16,8 +16,6 @@
     "auto": "Auto (time of day)"
   },
   "Auth": {
-    "brand": "Authentication",
-    "eyebrow": "Center of Intelligence",
     "title": "Sign in to continue",
     "subtitle": "Use your account to access the application",
     "signIn": "Sign in",
