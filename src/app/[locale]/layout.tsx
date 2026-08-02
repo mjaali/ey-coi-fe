@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AutoTheme } from "@/components/layout/auto-theme";
 import { ThemeChrome } from "@/components/layout/theme-chrome";
 import { ThemeProvider } from "@/components/theme-provider";
-import { THEME_MODES } from "@/config/theme";
+import { appBg, THEME_MODES } from "@/theme";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -33,8 +33,8 @@ export function generateStaticParams() {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: light)", color: appBg.light },
+    { media: "(prefers-color-scheme: dark)", color: appBg.dark },
   ],
 };
 

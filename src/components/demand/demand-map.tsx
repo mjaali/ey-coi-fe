@@ -10,6 +10,7 @@ import { cityCoordinates } from "@/data/city-coordinates";
 import type { RankRow } from "@/lib/customs/demand";
 import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { accentFillClasses } from "@/theme";
 import { useDemandFormat } from "./format";
 
 type DemandMapProps = {
@@ -115,8 +116,10 @@ export function DemandMap({ locale, cities, className }: DemandMapProps) {
               aria-label={fmt.name(city.label)}
               style={{ width: city.radius * 2, height: city.radius * 2 }}
               className={cn(
-                "rounded-full border-2 border-background bg-sky-500/80 shadow-md transition-transform hover:scale-110",
-                active?.key === city.key && "scale-110 ring-2 ring-sky-500/50"
+                "rounded-full border-2 border-background shadow-md transition-transform hover:scale-110",
+                accentFillClasses.sky,
+                "opacity-80",
+                active?.key === city.key && "scale-110 opacity-100 ring-2 ring-modon-sky/50"
               )}
             />
           </Marker>

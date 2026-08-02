@@ -3,11 +3,13 @@
 import { useEffect } from "react";
 import { useTheme } from "next-themes";
 
+import { appBg } from "@/theme";
+
 function readAppBgSolid() {
   return (
     getComputedStyle(document.documentElement)
       .getPropertyValue("--app-bg-solid")
-      .trim() || "#fafafa"
+      .trim() || appBg.light
   );
 }
 

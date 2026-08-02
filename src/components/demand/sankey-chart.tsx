@@ -12,11 +12,13 @@ import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { useDemandFormat } from "./format";
 
+import { brand } from "@/theme";
+
 const COLUMN_ACCENT: Record<SankeyColumn, string> = {
-  country: "#8b5cf6",
-  chapter: "#10b981",
-  port: "#f59e0b",
-  city: "#0ea5e9",
+  country: brand.purple,
+  chapter: brand.green,
+  port: brand.blue,
+  city: brand.sky,
 };
 
 const VIEW_W = 960;

@@ -15,6 +15,7 @@ import type {
 import { commandCenterQuery } from "@/lib/command-center/query";
 import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { gapBandFillClasses, gapScoreFillClass } from "@/theme";
 
 type NationalGapMapProps = {
   locale: Locale;
@@ -25,9 +26,7 @@ type NationalGapMapProps = {
 };
 
 function pickTone(score: number) {
-  if (score >= 75) return "bg-rose-500";
-  if (score >= 55) return "bg-amber-500";
-  return "bg-emerald-500";
+  return gapScoreFillClass(score);
 }
 
 function pickLabel(score: number, t: ReturnType<typeof useTranslations>) {
@@ -175,13 +174,13 @@ export function NationalGapMap({
       </div>
 
       <div className="flex flex-wrap gap-3 rounded-2xl border border-border bg-card p-3 text-xs text-muted-foreground">
-        <LegendDot className="bg-rose-500" label={t("map.legend.highGap")} />
+        <LegendDot className={gapBandFillClasses.high} label={t("map.legend.highGap")} />
         <LegendDot
-          className="bg-amber-500"
+          className={gapBandFillClasses.moderate}
           label={t("map.legend.moderateGap")}
         />
         <LegendDot
-          className="bg-emerald-500"
+          className={gapBandFillClasses.low}
           label={t("map.legend.strongCoverage")}
         />
       </div>

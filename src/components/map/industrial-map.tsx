@@ -11,6 +11,7 @@ import {
 } from "@/config/mapbox";
 import { industrialCities, type IndustrialCity } from "@/data/industrial-cities";
 import { cn } from "@/lib/utils";
+import { accentFillClasses } from "@/theme";
 
 type IndustrialMapProps = {
   locale: "en" | "ar";
@@ -79,8 +80,9 @@ export function IndustrialMap({
               type="button"
               aria-label={cityName(city, locale)}
               className={cn(
-                "h-3 w-3 rounded-full border-2 border-background bg-emerald-500 shadow-md transition-transform hover:scale-125",
-                activeCity?.id === city.id && "scale-125 ring-2 ring-emerald-500/40"
+                "h-3 w-3 rounded-full border-2 border-background shadow-md transition-transform hover:scale-125",
+                accentFillClasses.green,
+                activeCity?.id === city.id && "scale-125 ring-2 ring-modon-green/40"
               )}
             />
           </Marker>

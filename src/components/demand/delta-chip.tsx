@@ -2,6 +2,7 @@
 
 import { Minus, TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { toneClasses } from "@/theme";
 
 /** Changes below this are noise, so they render as flat rather than directional. */
 const FLAT_THRESHOLD = 0.005;
@@ -30,10 +31,10 @@ export function DeltaChip({
         "inline-flex items-center gap-1 rounded-full font-medium tabular-nums",
         size === "sm" ? "px-2 py-0.5 text-xs" : "px-1.5 py-0.5 text-[11px]",
         flat
-          ? "bg-muted text-muted-foreground"
+          ? toneClasses.neutral
           : up
-            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-            : "bg-rose-500/10 text-rose-600 dark:text-rose-400",
+            ? toneClasses.positive
+            : toneClasses.negative,
         className
       )}
     >

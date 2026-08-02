@@ -4,7 +4,7 @@ import { useSyncExternalStore } from "react";
 import { Clock, LucideIcon, Monitor, Moon, Sun } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import { THEME_MODES, type ThemeMode } from "@/config/theme";
+import { THEME_MODES, type ThemeMode } from "@/theme";
 import { cn } from "@/lib/utils";
 
 const MODE_ICONS: Record<ThemeMode, LucideIcon> = {

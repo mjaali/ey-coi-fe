@@ -10,6 +10,13 @@ import type {
 import type { PortMode } from "@/lib/customs/dictionaries";
 import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import {
+  flowFillClasses,
+  gapBandFillClasses,
+  gapBandTextClasses,
+  modeFillClasses,
+  toneTextClasses,
+} from "@/theme";
 import { useDemandFormat } from "./format";
 
 function Card({
@@ -32,11 +39,7 @@ function Card({
   );
 }
 
-const BAND_STYLE: Record<Concentration["band"], string> = {
-  low: "text-emerald-600 dark:text-emerald-400",
-  moderate: "text-amber-600 dark:text-amber-400",
-  high: "text-rose-600 dark:text-rose-400",
-};
+const BAND_STYLE = gapBandTextClasses;
 
 /** HHI runs 0–10,000; the gauge is clamped to 5,000 to keep it readable. */
 const HHI_GAUGE_MAX = 5000;
@@ -81,10 +84,10 @@ export function ConcentrationCard({
             className={cn(
               "h-full rounded-full",
               concentration.band === "low"
-                ? "bg-emerald-500"
+                ? gapBandFillClasses.low
                 : concentration.band === "moderate"
-                  ? "bg-amber-500"
-                  : "bg-rose-500"
+                  ? gapBandFillClasses.moderate
+                  : gapBandFillClasses.high
             )}
             style={{ width: `${fill}%` }}
           />
@@ -165,7 +168,7 @@ export function TradeBalanceCard({
           className={cn(
             "text-sm font-medium",
             net >= 0
-              ? "text-emerald-600 dark:text-emerald-400"
+              ? toneTextClasses.positive
               : "text-muted-foreground"
           )}
         >
@@ -175,22 +178,22 @@ export function TradeBalanceCard({
 
       <div className="flex h-2.5 overflow-hidden rounded-full bg-muted">
         <div
-          className="bg-sky-500"
+          className={flowFillClasses.import}
           style={{ width: `${importShare * 100}%` }}
           aria-hidden
         />
-        <div className="flex-1 bg-violet-500" aria-hidden />
+        <div className={cn("flex-1", flowFillClasses.export)} aria-hidden />
       </div>
 
       <dl className="flex flex-col gap-2 text-sm">
         <Legend
-          color="bg-sky-500"
+          color={flowFillClasses.import}
           label={t("flowImport")}
           value={fmt.weight(imports.kg)}
           hint={fmt.percent.format(importShare)}
         />
         <Legend
-          color="bg-violet-500"
+          color={flowFillClasses.export}
           label={t("flowExport")}
           value={fmt.weight(exports.kg)}
           hint={fmt.percent.format(1 - importShare)}
@@ -212,11 +215,7 @@ const MODE_ICON: Record<PortMode, typeof Ship> = {
   air: Plane,
 };
 
-const MODE_COLOR: Record<PortMode, string> = {
-  sea: "bg-sky-500",
-  land: "bg-amber-500",
-  air: "bg-emerald-500",
-};
+const MODE_COLOR = modeFillClasses;
 
 export function ModeSplitCard({
   locale,

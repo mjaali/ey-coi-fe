@@ -4,17 +4,13 @@ import { useTranslations } from "next-intl";
 import type { RankRow } from "@/lib/customs/demand";
 import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { legacyAccentFillClasses, type LegacyAccent } from "@/theme";
 import { DeltaChip } from "./delta-chip";
 import { useDemandFormat } from "./format";
 
-export type Accent = "sky" | "violet" | "emerald" | "amber";
+export type Accent = LegacyAccent;
 
-const ACCENT_BAR: Record<Accent, string> = {
-  sky: "bg-sky-500",
-  violet: "bg-violet-500",
-  emerald: "bg-emerald-500",
-  amber: "bg-amber-500",
-};
+const ACCENT_BAR = legacyAccentFillClasses;
 
 export function RankPanel({
   locale,

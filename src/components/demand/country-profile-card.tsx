@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import type { CountryProfile, RankRow } from "@/lib/customs/demand";
 import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { accentFillClasses, toneTextClasses } from "@/theme";
 import { useDemandFormat } from "./format";
 
 export function CountryProfileCard({
@@ -78,13 +79,13 @@ export function CountryProfileCard({
           locale={locale}
           title={t("profileTopProducts")}
           rows={profile.topChapters}
-          accent="bg-emerald-500"
+          accent={accentFillClasses.green}
         />
         <MiniList
           locale={locale}
           title={t("profileTopCities")}
           rows={profile.topCities}
-          accent="bg-sky-500"
+          accent={accentFillClasses.sky}
         />
       </div>
     </section>
@@ -105,7 +106,7 @@ function Metric({
       <div
         className={cn(
           "text-lg font-semibold tracking-tight tabular-nums",
-          tone === "positive" && "text-emerald-600 dark:text-emerald-400"
+          tone === "positive" && toneTextClasses.positive
         )}
       >
         {value}

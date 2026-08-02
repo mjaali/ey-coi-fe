@@ -17,13 +17,14 @@ import { useTranslations } from "next-intl";
 import type { Insight, Tone } from "@/lib/customs/demand";
 import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { toneClasses } from "@/theme";
 import { useDemandFormat } from "./format";
 
 const TONE_STYLE: Record<Tone, string> = {
-  positive: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  negative: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
-  warning: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-  neutral: "bg-muted text-muted-foreground",
+  positive: toneClasses.positive,
+  negative: toneClasses.negative,
+  warning: toneClasses.warning,
+  neutral: toneClasses.neutral,
 };
 
 export function InsightGrid({

@@ -1,0 +1,132 @@
+/**
+ * MODON brand + semantic CSS variables.
+ * Edit colors here (and mirror hexes in `tokens.ts`) to restyle the whole app.
+ */
+
+:root {
+  /* Brand palette */
+  --modon-navy: #0b2340;
+  --modon-blue: #155a7d;
+  --modon-sky: #6aabe4;
+  --modon-light-blue: #96d9e8;
+  --modon-dark-green: #00584d;
+  --modon-green: #55a980;
+  --modon-lime: #7aca6e;
+  --modon-mint: #bae7c9;
+  --modon-purple: #38227b;
+  --modon-light-purple: #a6a3df;
+  --modon-pale-purple: #c7cde9;
+
+  /* Semantic — light */
+  --background: #ffffff;
+  --surface: #f7f7f7;
+  --foreground: #0b2340;
+  --card: #ffffff;
+  --card-foreground: #0b2340;
+  --popover: #ffffff;
+  --popover-foreground: #0b2340;
+  --primary: #155a7d;
+  --primary-foreground: #ffffff;
+  --primary-hover: #6aabe4;
+  --secondary: #f7f7f7;
+  --secondary-foreground: #0b2340;
+  --muted: #f7f7f7;
+  --muted-foreground: #5a6b7d;
+  --accent: #96d9e8;
+  --accent-foreground: #0b2340;
+  --destructive: #b42318;
+  --border: color-mix(in srgb, #0b2340 12%, #ffffff);
+  --input: color-mix(in srgb, #0b2340 14%, #ffffff);
+  --ring: #6aabe4;
+  --success: #00584d;
+  --success-foreground: #ffffff;
+  --success-muted: #bae7c9;
+  --warning: #55a980;
+  --warning-foreground: #0b2340;
+  --warning-muted: color-mix(in srgb, #55a980 22%, #ffffff);
+  --info: #155a7d;
+  --info-foreground: #ffffff;
+  --info-muted: #96d9e8;
+  --brand-purple: #38227b;
+  --brand-purple-foreground: #ffffff;
+  --brand-purple-muted: #c7cde9;
+  --chart-1: #155a7d;
+  --chart-2: #6aabe4;
+  --chart-3: #55a980;
+  --chart-4: #38227b;
+  --chart-5: #7aca6e;
+  --radius: 0.5rem;
+  --app-bg: #ffffff;
+  --app-bg-solid: #ffffff;
+  --sidebar: #0b2340;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #6aabe4;
+  --sidebar-primary-foreground: #0b2340;
+  --sidebar-accent: #155a7d;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: color-mix(in srgb, #ffffff 14%, transparent);
+  --sidebar-ring: #6aabe4;
+}
+
+.dark {
+  /* Brand palette stays identical; semantic roles adapt for contrast */
+  --modon-navy: #0b2340;
+  --modon-blue: #155a7d;
+  --modon-sky: #6aabe4;
+  --modon-light-blue: #96d9e8;
+  --modon-dark-green: #00584d;
+  --modon-green: #55a980;
+  --modon-lime: #7aca6e;
+  --modon-mint: #bae7c9;
+  --modon-purple: #38227b;
+  --modon-light-purple: #a6a3df;
+  --modon-pale-purple: #c7cde9;
+
+  --background: #0b2340;
+  --surface: #12304f;
+  --foreground: #ffffff;
+  --card: #12304f;
+  --card-foreground: #ffffff;
+  --popover: #12304f;
+  --popover-foreground: #ffffff;
+  --primary: #6aabe4;
+  --primary-foreground: #0b2340;
+  --primary-hover: #96d9e8;
+  --secondary: #155a7d;
+  --secondary-foreground: #ffffff;
+  --muted: #155a7d;
+  --muted-foreground: #96d9e8;
+  --accent: #155a7d;
+  --accent-foreground: #ffffff;
+  --destructive: #f97066;
+  --border: color-mix(in srgb, #ffffff 14%, transparent);
+  --input: color-mix(in srgb, #ffffff 18%, transparent);
+  --ring: #6aabe4;
+  --success: #7aca6e;
+  --success-foreground: #0b2340;
+  --success-muted: color-mix(in srgb, #00584d 55%, #0b2340);
+  --warning: #55a980;
+  --warning-foreground: #ffffff;
+  --warning-muted: color-mix(in srgb, #55a980 28%, #0b2340);
+  --info: #6aabe4;
+  --info-foreground: #0b2340;
+  --info-muted: color-mix(in srgb, #155a7d 55%, #0b2340);
+  --brand-purple: #a6a3df;
+  --brand-purple-foreground: #0b2340;
+  --brand-purple-muted: color-mix(in srgb, #38227b 45%, #0b2340);
+  --chart-1: #6aabe4;
+  --chart-2: #96d9e8;
+  --chart-3: #7aca6e;
+  --chart-4: #a6a3df;
+  --chart-5: #55a980;
+  --app-bg: #0b2340;
+  --app-bg-solid: #0b2340;
+  --sidebar: #071828;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #6aabe4;
+  --sidebar-primary-foreground: #0b2340;
+  --sidebar-accent: #155a7d;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: color-mix(in srgb, #ffffff 12%, transparent);
+  --sidebar-ring: #6aabe4;
+}

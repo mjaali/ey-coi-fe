@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import type { SeriesPoint } from "@/lib/customs/demand";
 import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { flowFillClasses } from "@/theme";
 import { DeltaChip } from "./delta-chip";
 import { useDemandFormat } from "./format";
 
@@ -70,7 +71,7 @@ export function TrendChart({
   }, [series, max, hasPrior]);
 
   const barColor =
-    flow === "import" ? "bg-sky-500" : "bg-violet-500";
+    flow === "import" ? flowFillClasses.import : flowFillClasses.export;
 
   const active = hovered !== null ? series[hovered] : null;
   const activeDelta =

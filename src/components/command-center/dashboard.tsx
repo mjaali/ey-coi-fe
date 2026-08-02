@@ -14,6 +14,13 @@ import type {
 import { commandCenterQuery } from "@/lib/command-center/query";
 import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import {
+  severityClasses,
+  toneClasses,
+  toneFillClasses,
+  toneTextClasses,
+  type Severity as ThemeSeverity,
+} from "@/theme";
 import { Button } from "@/components/ui/button";
 import { StatCard } from "@/components/layout/stat-card";
 import { FilterBar } from "@/components/filters/filter-bar";
@@ -66,26 +73,21 @@ function delta(current: number | null, previous: number | null) {
 function gapStatusTone(status: GapMatrixItem["gapStatus"]) {
   switch (status) {
     case "exportedManufactured":
-      return "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300";
+      return toneClasses.positive;
     case "manufacturedNotExported":
-      return "bg-sky-500/10 text-sky-700 dark:text-sky-300";
+      return toneClasses.info;
     case "importedNotManufactured":
-      return "bg-rose-500/10 text-rose-700 dark:text-rose-300";
+      return toneClasses.negative;
     case "emerging":
     default:
-      return "bg-amber-500/10 text-amber-700 dark:text-amber-300";
+      return toneClasses.warning;
   }
 }
 
 function severityTone(severity: Severity) {
-  switch (severity) {
-    case "critical":
-      return "bg-rose-500/10 text-rose-700 dark:text-rose-300";
-    case "high":
-      return "bg-amber-500/10 text-amber-700 dark:text-amber-300";
-    default:
-      return "bg-sky-500/10 text-sky-700 dark:text-sky-300";
-  }
+  const key: ThemeSeverity =
+    severity === "critical" || severity === "high" ? severity : "default";
+  return severityClasses[key];
 }
 
 export function CommandCenterDashboard({
@@ -234,10 +236,10 @@ export function CommandCenterDashboard({
                       className={cn(
                         "mt-1 h-2.5 w-2.5 shrink-0 rounded-full",
                         highlight.tone === "positive"
-                          ? "bg-emerald-500"
+                          ? toneFillClasses.positive
                           : highlight.tone === "warning"
-                            ? "bg-amber-500"
-                            : "bg-sky-500"
+                            ? toneFillClasses.warning
+                            : toneFillClasses.info
                       )}
                       aria-hidden
                     />
@@ -678,7 +680,7 @@ function Gauge({
             strokeDashoffset={dashOffset}
             className={cn(
               "fill-none transition-[stroke-dashoffset] duration-500 ease-out",
-              hasValue ? "stroke-emerald-500" : "stroke-muted-foreground/30"
+              hasValue ? "stroke-modon-green" : "stroke-muted-foreground/30"
             )}
           />
         </svg>
@@ -711,7 +713,9 @@ function MetricCard({
       <div className="text-sm font-medium text-muted-foreground">{title}</div>
       <div className="mt-2 text-2xl font-semibold tracking-tight">{value}</div>
       <div className="mt-2 text-sm text-muted-foreground">{detail}</div>
-      {change ? <div className="mt-1 text-xs text-emerald-600">{change}</div> : null}
+      {change ? (
+        <div className={cn("mt-1 text-xs", toneTextClasses.positive)}>{change}</div>
+      ) : null}
     </div>
   );
 }
@@ -773,7 +777,7 @@ function StatusDot({ active }: { active: boolean }) {
       className={cn(
         "inline-flex h-6 w-6 items-center justify-center rounded-full border text-xs font-semibold",
         active
-          ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+          ? cn("border-modon-green/40", toneClasses.positive)
           : "border-border bg-muted text-muted-foreground"
       )}
       aria-label={active ? "yes" : "no"}

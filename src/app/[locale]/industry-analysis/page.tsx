@@ -9,6 +9,8 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { StatCard } from "@/components/layout/stat-card";
 import { IndustrialMap } from "@/components/map/industrial-map";
 import type { Locale } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
+import { accentFillClasses } from "@/theme";
 import {
   industrySummary as summary,
   type Industry,
@@ -144,11 +146,10 @@ function RankPanel({
     <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-4 sm:p-5">
       <div className="flex items-center gap-2.5">
         <span
-          className={
-            accent === "top"
-              ? "h-2 w-2 rounded-full bg-emerald-500"
-              : "h-2 w-2 rounded-full bg-amber-500"
-          }
+          className={cn(
+            "h-2 w-2 rounded-full",
+            accent === "top" ? accentFillClasses.green : accentFillClasses.blue
+          )}
         />
         <div>
           <h2 className="text-lg font-semibold tracking-tight">{title}</h2>
@@ -202,11 +203,10 @@ function IndustryRow({
       <div className="flex items-center gap-3">
         <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
           <div
-            className={
-              accent === "top"
-                ? "h-full rounded-full bg-emerald-500"
-                : "h-full rounded-full bg-amber-500"
-            }
+            className={cn(
+              "h-full rounded-full",
+              accent === "top" ? accentFillClasses.green : accentFillClasses.blue
+            )}
             style={{ width: `${Math.max(width, 4)}%` }}
           />
         </div>
