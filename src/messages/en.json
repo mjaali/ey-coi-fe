@@ -16,11 +16,11 @@
     "auto": "Auto (time of day)"
   },
   "Auth": {
-    "brand": "MODON",
+    "brand": "Authentication",
     "eyebrow": "Center of Intelligence",
     "title": "Sign in to continue",
-    "subtitle": "Use your Modon account to access operational intelligence.",
-    "signIn": "Sign in with Modon",
+    "subtitle": "Use your account to access the application",
+    "signIn": "Sign in",
     "signOut": "Sign out",
     "account": "Account"
   },
