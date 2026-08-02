@@ -68,10 +68,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# better-sqlite3 is externalized; ensure native module is present for standalone
+# better-sqlite3 is externalized; copy package (prebuilds + nested node-addon-api)
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/better-sqlite3 ./node_modules/better-sqlite3
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/bindings ./node_modules/bindings
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/file-uri-to-path ./node_modules/file-uri-to-path
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/node-addon-api ./node_modules/node-addon-api
 
 COPY --chown=nextjs:nodejs data/customs-declarations.db /app/data/customs-declarations.db
 

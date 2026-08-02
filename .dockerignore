@@ -29,3 +29,5 @@ README.md
 **/assets/generated/customs-declarations.json
 البيانات الجمركية*.xlsx
 tsconfig.tsbuildinfo
+!data/
+!data/**
