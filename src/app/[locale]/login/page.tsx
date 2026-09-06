@@ -2,9 +2,12 @@ import { redirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { auth, signIn } from "@/auth";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
+import { StatusBadge } from "@/components/layout/status-badge";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { Button } from "@/components/ui/button";
 import type { Locale } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
+import { surfaceClasses } from "@/theme";
 
 type LoginPageProps = {
   params: Promise<{ locale: Locale }>;
@@ -34,6 +37,7 @@ export default async function LoginPage({
   }
 
   const t = await getTranslations("Auth");
+  const tIntro = await getTranslations("IntroPage");
 
   return (
     <div className="relative flex min-h-dvh flex-col items-center justify-center px-4">
@@ -42,12 +46,16 @@ export default async function LoginPage({
         <LocaleSwitcher />
       </div>
 
-      <div className="flex w-full max-w-xs flex-col gap-8">
-        <div className="space-y-1.5 text-center">
-          <h1 className="text-xl font-semibold tracking-tight text-foreground">
-            {t("title")}
-          </h1>
-          <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
+      <div className={cn(surfaceClasses.glass, "flex w-full max-w-sm flex-col gap-6 p-6")}>
+        <div className="space-y-3 text-center">
+          <StatusBadge label={tIntro("status.live")} tone="nominal" />
+          <div>
+            <div className="hud-label text-primary">{tIntro("missionId")}</div>
+            <h1 className="mt-2 text-xl font-semibold tracking-tight text-foreground">
+              {t("title")}
+            </h1>
+            <p className="mt-1.5 text-sm text-muted-foreground">{t("subtitle")}</p>
+          </div>
         </div>
 
         <form

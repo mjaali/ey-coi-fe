@@ -51,10 +51,11 @@ export default function IndustryAnalysis({
 
   return (
     <PageShell>
-      <SiteHeader brand={t("brand")} linkHome />
+      <SiteHeader brand={t("brand")} linkHome activeHref="/industry-analysis" />
 
       <PageHero
         backLabel={t("backToIntro")}
+        eyebrow="COI · INDUSTRY"
         title={t("title")}
         subtitle={t("subtitle")}
       />
@@ -143,7 +144,7 @@ function RankPanel({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-4 sm:p-5">
+    <div className="flex flex-col gap-4 rounded-lg border border-border/80 bg-card/85 p-4 backdrop-blur-md sm:p-5">
       <div className="flex items-center gap-2.5">
         <span
           className={cn(

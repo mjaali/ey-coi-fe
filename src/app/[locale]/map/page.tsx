@@ -23,10 +23,11 @@ export default function MapPage({
 
   return (
     <PageShell>
-      <SiteHeader brand={t("brand")} linkHome />
+      <SiteHeader brand={t("brand")} linkHome activeHref="/map" />
 
       <PageHero
         backLabel={t("backToIntro")}
+        eyebrow="COI · MAP"
         title={t("title")}
         subtitle={t("subtitle")}
       />

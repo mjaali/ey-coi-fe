@@ -152,7 +152,7 @@ export function DemandDashboard({
             {stats.map((stat) => (
               <div
                 key={stat.key}
-                className="flex flex-col justify-between gap-2 rounded-xl border border-border bg-card p-3"
+                className="flex flex-col justify-between gap-2 rounded-md border border-border/80 bg-card/85 p-3 backdrop-blur-md"
               >
                 <div className="text-xl font-semibold tracking-tight tabular-nums">
                   {stat.value}

@@ -135,7 +135,7 @@ export function CountryPicker({
       </div>
 
       {open && (
-        <div className="absolute top-full z-50 mt-2 w-full min-w-[min(22rem,calc(100vw-3rem))] overflow-hidden rounded-2xl border border-border bg-popover shadow-xl ltr:left-0 rtl:right-0">
+        <div className="absolute top-full z-50 mt-2 w-full min-w-[min(22rem,calc(100vw-3rem))] overflow-hidden rounded-lg border border-border bg-popover shadow-xl ltr:left-0 rtl:right-0">
           <div className="flex items-center gap-2 border-b border-border px-3">
             <Search
               className="h-4 w-4 shrink-0 text-muted-foreground"

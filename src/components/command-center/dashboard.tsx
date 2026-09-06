@@ -155,7 +155,7 @@ export function CommandCenterDashboard({
       <div className="flex min-w-0 flex-col gap-8">
       <section className="grid grid-cols-2 gap-3 xl:grid-cols-6">
         {data.kpis.map((kpi) => (
-          <div key={kpi.label} className="rounded-xl border border-border bg-card p-3.5">
+          <div key={kpi.label} className="rounded-md border border-border/80 bg-card/85 p-3.5 backdrop-blur-md">
             <StatCard
               label={kpiLabels[kpi.label]}
               value={
@@ -181,7 +181,7 @@ export function CommandCenterDashboard({
       </section>
 
       <section className="grid gap-4 xl:grid-cols-[minmax(0,1.4fr)_minmax(16rem,.6fr)_minmax(16rem,.6fr)]">
-        <div className="rounded-2xl border border-border bg-card p-5">
+        <div className="rounded-lg border border-border/80 bg-card/85 p-5 backdrop-blur-md">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0 flex-1">
               <h2 className="text-xl font-semibold tracking-tight">{t("pulse.title")}</h2>
@@ -270,7 +270,7 @@ export function CommandCenterDashboard({
           />
 
           {data.mapSelection && (
-            <div className="rounded-2xl border border-border bg-background p-4">
+            <div className="rounded-lg border border-border bg-background p-4">
               <div className="text-sm font-semibold">
                 {localized(locale, data.mapSelection.name)}
               </div>
@@ -452,7 +452,7 @@ export function CommandCenterDashboard({
           <EmptyCopy>{t("empty.matrix")}</EmptyCopy>
         ) : (
           <>
-            <div className="overflow-x-auto rounded-2xl border border-border">
+            <div className="overflow-x-auto rounded-lg border border-border">
               <table className="min-w-full divide-y divide-border text-sm">
                 <thead className="bg-muted/50">
                   <tr>
@@ -551,7 +551,7 @@ export function CommandCenterDashboard({
         {data.opportunities.length === 0 ? (
           <EmptyCopy>{t("empty.engine")}</EmptyCopy>
         ) : (
-          <div className="overflow-x-auto rounded-2xl border border-border">
+          <div className="overflow-x-auto rounded-lg border border-border">
             <table className="min-w-full divide-y divide-border text-sm">
               <thead className="bg-muted/50">
                 <tr>
@@ -590,7 +590,7 @@ export function CommandCenterDashboard({
       </Panel>
 
       {data.usesMockAdapter && (
-        <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-4 text-sm text-muted-foreground">
+        <div className="rounded-lg border border-dashed border-border bg-muted/30 p-4 text-sm text-muted-foreground">
           {localized(locale, data.sourceNote)}
         </div>
       )}
@@ -621,7 +621,7 @@ function Panel({
   contentClassName?: string;
 }) {
   return (
-    <section className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-4 sm:p-5">
+    <section className="flex flex-col gap-4 rounded-lg border border-border/80 bg-card/85 p-4 backdrop-blur-md sm:p-5">
       <div>
         <h2 className="text-lg font-semibold tracking-tight">{title}</h2>
         <p className="text-sm text-muted-foreground">{subtitle}</p>
@@ -709,7 +709,7 @@ function MetricCard({
   change?: string | null;
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-4">
+    <div className="rounded-lg border border-border/80 bg-card/85 p-4 backdrop-blur-md">
       <div className="text-sm font-medium text-muted-foreground">{title}</div>
       <div className="mt-2 text-2xl font-semibold tracking-tight">{value}</div>
       <div className="mt-2 text-sm text-muted-foreground">{detail}</div>

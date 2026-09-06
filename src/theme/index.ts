@@ -1,11 +1,11 @@
 /**
- * Central design system for the MODON app.
+ * Central design system for the COI HUD app.
  *
  * Usage
  * -----
  * CSS / Tailwind utilities:
  *   Edit `tokens.css` for color values (light + dark).
- *   `bridge.css` exposes them as Tailwind classes (`bg-primary`, `text-modon-navy`, …).
+ *   `bridge.css` exposes them as Tailwind classes (`bg-primary`, `text-modon-green`, …).
  *
  * TypeScript (charts, maps, shared recipes):
  *   import { brand, toneClasses, accentFillClasses } from "@/theme";

@@ -73,7 +73,7 @@ export function NationalGapMap({
       <div className="flex flex-col gap-3">
         <div
           className={cn(
-            "flex items-center justify-center rounded-2xl border border-dashed border-border bg-muted/40 p-6 text-center text-sm text-muted-foreground",
+            "flex items-center justify-center rounded-lg border border-dashed border-border bg-muted/40 p-6 text-center text-sm text-muted-foreground",
             className
           )}
         >
@@ -88,7 +88,7 @@ export function NationalGapMap({
       <div className="flex flex-col gap-3">
         <div
           className={cn(
-            "flex items-center justify-center rounded-2xl border border-dashed border-border bg-muted/40 p-6 text-center text-sm text-muted-foreground",
+            "flex items-center justify-center rounded-lg border border-dashed border-border bg-muted/40 p-6 text-center text-sm text-muted-foreground",
             className
           )}
         >
@@ -102,7 +102,7 @@ export function NationalGapMap({
     <div className="flex flex-col gap-3">
       <div
         className={cn(
-          "overflow-hidden rounded-2xl border border-border",
+          "overflow-hidden rounded-lg border border-border",
           className
         )}
       >
@@ -173,7 +173,7 @@ export function NationalGapMap({
         </Map>
       </div>
 
-      <div className="flex flex-wrap gap-3 rounded-2xl border border-border bg-card p-3 text-xs text-muted-foreground">
+      <div className="flex flex-wrap gap-3 rounded-lg border border-border/80 bg-card/85 p-3 text-xs text-muted-foreground backdrop-blur-md">
         <LegendDot className={gapBandFillClasses.high} label={t("map.legend.highGap")} />
         <LegendDot
           className={gapBandFillClasses.moderate}

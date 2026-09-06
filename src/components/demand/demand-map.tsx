@@ -63,7 +63,7 @@ export function DemandMap({ locale, cities, className }: DemandMapProps) {
     return (
       <div
         className={cn(
-          "flex items-center justify-center rounded-2xl border border-dashed border-border bg-muted/40 p-6 text-center text-sm text-muted-foreground",
+          "flex items-center justify-center rounded-lg border border-dashed border-border bg-muted/40 p-6 text-center text-sm text-muted-foreground",
           className
         )}
       >
@@ -76,7 +76,7 @@ export function DemandMap({ locale, cities, className }: DemandMapProps) {
     return (
       <div
         className={cn(
-          "flex items-center justify-center rounded-2xl border border-dashed border-border bg-muted/40 p-6 text-center text-sm text-muted-foreground",
+          "flex items-center justify-center rounded-lg border border-dashed border-border bg-muted/40 p-6 text-center text-sm text-muted-foreground",
           className
         )}
       >
@@ -87,7 +87,7 @@ export function DemandMap({ locale, cities, className }: DemandMapProps) {
 
   return (
     <div
-      className={cn("overflow-hidden rounded-2xl border border-border", className)}
+      className={cn("overflow-hidden rounded-lg border border-border", className)}
     >
       <Map
         mapboxAccessToken={MAPBOX_TOKEN}

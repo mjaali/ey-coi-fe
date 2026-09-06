@@ -1,5 +1,5 @@
 /**
- * Shared Tailwind class recipes for MODON UI.
+ * Shared Tailwind class recipes for the COI HUD UI.
  * Import these instead of hardcoding tone / accent / status classes in components.
  */
 
@@ -9,25 +9,25 @@ export type Tone = "positive" | "negative" | "warning" | "neutral" | "info";
 export const toneClasses: Record<Tone, string> = {
   positive: "bg-success-muted text-success",
   negative: "bg-destructive/10 text-destructive",
-  warning: "bg-warning-muted text-warning-foreground dark:text-warning",
+  warning: "bg-warning-muted text-warning",
   neutral: "bg-muted text-muted-foreground",
-  info: "bg-info-muted text-info dark:text-modon-sky",
+  info: "bg-info-muted text-info",
 };
 
 /** Solid text color for inline labels. */
 export const toneTextClasses: Record<Tone, string> = {
   positive: "text-success",
   negative: "text-destructive",
-  warning: "text-warning-foreground dark:text-warning",
+  warning: "text-warning",
   neutral: "text-muted-foreground",
-  info: "text-info dark:text-modon-sky",
+  info: "text-info",
 };
 
 /** Solid fills (dots, bars, markers). */
 export const toneFillClasses: Record<Tone, string> = {
   positive: "bg-modon-green",
   negative: "bg-destructive",
-  warning: "bg-modon-blue",
+  warning: "bg-warning",
   neutral: "bg-muted-foreground",
   info: "bg-modon-sky",
 };
@@ -49,7 +49,7 @@ export const legacyAccentFillClasses: Record<LegacyAccent, string> = {
   sky: accentFillClasses.sky,
   violet: accentFillClasses.lightPurple,
   emerald: accentFillClasses.green,
-  amber: accentFillClasses.blue,
+  amber: "bg-warning",
 };
 
 export type Severity = "critical" | "high" | "default";
@@ -95,8 +95,10 @@ export const flowFillClasses = {
 } as const;
 
 export const surfaceClasses = {
-  card: "rounded-2xl border border-border bg-card",
-  cardCompact: "rounded-xl border border-border bg-card",
-  muted: "rounded-xl bg-muted/50",
-  panel: "rounded-2xl border border-border bg-card p-4 sm:p-5",
+  card: "rounded-lg border border-border/80 bg-card/85 backdrop-blur-md",
+  cardCompact: "rounded-md border border-border/80 bg-card/85 backdrop-blur-md",
+  muted: "rounded-md bg-muted/50",
+  panel: "rounded-lg border border-border/80 bg-card/85 p-4 backdrop-blur-md sm:p-5",
+  glass:
+    "rounded-lg border border-border/70 bg-[color-mix(in_srgb,var(--card)_78%,transparent)] shadow-[inset_0_1px_0_color-mix(in_srgb,white_6%,transparent)] backdrop-blur-md",
 } as const;

@@ -23,7 +23,7 @@ export function CountryProfileCard({
   const fmt = useDemandFormat(locale);
 
   return (
-    <section className="flex flex-col gap-4 rounded-2xl border border-foreground/15 bg-card p-4 sm:p-5">
+    <section className="flex flex-col gap-4 rounded-lg border border-foreground/15 bg-card/85 p-4 backdrop-blur-md sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <span className="text-3xl leading-none" aria-hidden>

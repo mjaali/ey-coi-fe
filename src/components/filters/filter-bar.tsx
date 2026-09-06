@@ -75,7 +75,7 @@ export function FilterBar({
   return (
     <section
       className={cn(
-        "flex flex-col gap-4 rounded-2xl border border-border bg-card p-3.5 transition-opacity sm:p-4",
+        "flex flex-col gap-4 rounded-lg border border-border/80 bg-card/85 p-3.5 backdrop-blur-md transition-opacity sm:p-4",
         pending && "opacity-60"
       )}
     >

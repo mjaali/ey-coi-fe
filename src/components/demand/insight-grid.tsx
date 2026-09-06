@@ -43,7 +43,7 @@ export function InsightGrid({
     return (
       <li
         key={`${insight.kind}-${index}`}
-        className="flex gap-2.5 rounded-xl border border-border bg-card p-3"
+        className="flex gap-2.5 rounded-md border border-border/80 bg-card/85 p-3 backdrop-blur-md"
       >
         <span
           className={cn(

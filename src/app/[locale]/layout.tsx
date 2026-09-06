@@ -85,7 +85,7 @@ export default async function LocaleLayout({
       <body className="flex min-h-dvh flex-col">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
           themes={[...THEME_MODES]}

@@ -243,7 +243,7 @@ export function SankeyChart({
 
   if (nodes.length === 0) {
     return (
-      <div className="rounded-2xl border border-border bg-card p-4 sm:p-5">
+      <div className="rounded-lg border border-border/80 bg-card/85 p-4 backdrop-blur-md sm:p-5">
         <div>
           <h2 className="text-lg font-semibold tracking-tight">
             {t("sankeyTitle")}
@@ -264,7 +264,7 @@ export function SankeyChart({
   const nodeById = new Map(nodes.map((n) => [n.id, n]));
 
   return (
-    <section className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-4 sm:p-5">
+    <section className="flex flex-col gap-3 rounded-lg border border-border/80 bg-card/85 p-4 backdrop-blur-md sm:p-5">
       <div>
         <h2 className="text-lg font-semibold tracking-tight">
           {t("sankeyTitle")}

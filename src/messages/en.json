@@ -30,12 +30,97 @@
   },
   "IntroPage": {
     "brand": "MODON",
+    "missionId": "COI-OPS-01",
     "eyebrow": "Center of Intelligence",
-    "title": "Operational intelligence for MODON's industrial cities",
-    "subtitle": "A unified view of the industrial base across MODON — factories, sectors, and infrastructure — turned into clear, decision-ready insight.",
+    "title": "Industrial system status",
+    "subtitle": "Live operational metrics across MODON cities. Select a module to open the full analysis.",
     "cta": "Explore industry analysis",
+    "nav": {
+      "home": "Ops",
+      "gap": "Gap",
+      "industry": "Industry",
+      "cities": "Cities",
+      "demand": "Demand"
+    },
+    "status": {
+      "live": "Live",
+      "nominal": "Nominal",
+      "warn": "Warn",
+      "strong": "Strong",
+      "standby": "Standby"
+    },
+    "readiness": {
+      "label": "System readiness"
+    },
+    "alerts": {
+      "title": "Critical alerts",
+      "airframe": "Industrial base integrity",
+      "sensors": "Manufacturing gap sensors",
+      "network": "Utility network link"
+    },
+    "hero": {
+      "view": "Ops view",
+      "kicker": "National industrial pulse",
+      "body": "MODON's industrial network is online — factories, trade demand, and localization gaps in one command surface.",
+      "hint": "Click any metric module below for deep-dive telemetry and filters.",
+      "statFactories": "Factories",
+      "statCities": "Cities",
+      "statSectors": "Sectors"
+    },
+    "signals": {
+      "title": "Telemetry bandwidth",
+      "export": "Export value",
+      "importWeight": "Import weight",
+      "topSector": "Lead sector",
+      "link": "Link",
+      "latency": "Latency",
+      "encrypt": "Security"
+    },
+    "modules": {
+      "gap": {
+        "title": "Gap analysis",
+        "description": "Localization score across manufacturing gaps and priority opportunities.",
+        "gaps": "Gaps",
+        "opportunities": "Priority ops",
+        "export": "Export value",
+        "selfSufficiency": "Self-sufficiency"
+      },
+      "industry": {
+        "title": "Industry analysis",
+        "description": "Factory footprint ranked by sector share and city coverage.",
+        "sectors": "Sectors",
+        "cities": "Cities",
+        "top": "Top share",
+        "leader": "Leader"
+      },
+      "cities": {
+        "title": "Industrial cities",
+        "description": "Geographic distribution of factories and utility network depth.",
+        "factories": "Factories",
+        "network": "Network",
+        "avg": "Avg / city",
+        "coverage": "Top coverage"
+      },
+      "demand": {
+        "title": "Demand analysis",
+        "description": "Customs import weight into MODON cities with partner and chapter detail.",
+        "declarations": "Declarations",
+        "partners": "Partners",
+        "cities": "Active cities",
+        "importers": "Importers"
+      },
+      "network": {
+        "title": "Infrastructure",
+        "description": "Utility and services network supporting the industrial base.",
+        "nodes": "Nodes",
+        "sectors": "Sectors",
+        "status": "Status",
+        "next": "Next release",
+        "nextValue": "Queued"
+      }
+    },
     "features": {
-      "explore": "Open analysis",
+      "explore": "Open module",
       "industries": {
         "title": "Industry analysis",
         "description": "See the leading and smallest manufacturing sectors ranked by factories, share, and city coverage."
@@ -57,7 +142,7 @@
         "description": "Track manufacturing gaps, localization opportunities, regional readiness, and prioritized industrial action."
       }
     },
-    "footer": "MODON — Center of Intelligence"
+    "footer": "MODON — Center of Intelligence · HUD ops console"
   },
   "DemandPage": {
     "brand": "MODON",

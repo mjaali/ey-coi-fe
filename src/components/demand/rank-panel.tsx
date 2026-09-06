@@ -38,7 +38,7 @@ export function RankPanel({
   const max = rows[0]?.current.kg ?? 1;
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-4 sm:p-5">
+    <div className="flex flex-col gap-4 rounded-lg border border-border/80 bg-card/85 p-4 backdrop-blur-md sm:p-5">
       <div>
         <h2 className="text-lg font-semibold tracking-tight">{title}</h2>
         <p className="text-sm text-muted-foreground">{subtitle}</p>

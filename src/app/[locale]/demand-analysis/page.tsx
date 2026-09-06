@@ -33,10 +33,11 @@ export default async function DemandAnalysis({
 
   return (
     <PageShell>
-      <SiteHeader brand={t("brand")} linkHome />
+      <SiteHeader brand={t("brand")} linkHome activeHref="/demand-analysis" />
 
       <PageHero
         backLabel={t("backToIntro")}
+        eyebrow="COI · DEMAND"
         title={t("title")}
         subtitle={t("subtitle")}
       />

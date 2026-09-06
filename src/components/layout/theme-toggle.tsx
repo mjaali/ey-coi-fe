@@ -29,7 +29,7 @@ export function ThemeToggle() {
     <div
       role="group"
       aria-label={t("label")}
-      className="flex items-center gap-0.5 rounded-full border border-border p-0.5"
+      className="flex items-center gap-0.5 rounded-md border border-border/80 bg-card/60 p-0.5 backdrop-blur-md"
     >
       {THEME_MODES.map((value) => {
         const Icon = MODE_ICONS[value];
@@ -43,9 +43,9 @@ export function ThemeToggle() {
             aria-label={t(value)}
             title={t(value)}
             className={cn(
-              "flex h-6 w-6 items-center justify-center rounded-full transition-colors",
+              "flex h-6 w-6 items-center justify-center rounded-sm transition-colors",
               active
-                ? "bg-foreground text-background"
+                ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >

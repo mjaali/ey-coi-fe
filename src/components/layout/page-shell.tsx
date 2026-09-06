@@ -10,8 +10,8 @@ export function PageShell({ children, className, gap = "md" }: PageShellProps) {
   return (
     <div
       className={cn(
-        "flex w-full flex-1 flex-col px-4 py-6 sm:px-6 sm:py-8",
-        gap === "lg" ? "gap-10" : "gap-8",
+        "relative flex w-full flex-1 flex-col px-3 py-4 sm:px-5 sm:py-6",
+        gap === "lg" ? "gap-8" : "gap-6",
         className
       )}
     >

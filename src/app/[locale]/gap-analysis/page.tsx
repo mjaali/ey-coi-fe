@@ -34,10 +34,11 @@ export default async function GapAnalysisPage({
 
   return (
     <PageShell>
-      <SiteHeader brand={t("brand")} linkHome />
+      <SiteHeader brand={t("brand")} linkHome activeHref="/gap-analysis" />
 
       <PageHero
         backLabel={t("backToIntro")}
+        eyebrow="COI · GAP"
         title={t("title")}
         subtitle={t("subtitle")}
       />

@@ -1,24 +1,26 @@
 
 export const brand = {
-  navy: "#0B2340",
-  blue: "#155A7D",
-  sky: "#6AABE4",
-  lightBlue: "#96D9E8",
-  darkGreen: "#00584D",
-  green: "#55A980",
-  lime: "#7ACA6E",
-  mint: "#BAE7C9",
-  purple: "#38227B",
-  lightPurple: "#A6A3DF",
+  navy: "#0A0E14",
+  blue: "#1A2332",
+  sky: "#5CE1FF",
+  lightBlue: "#9AE8FF",
+  darkGreen: "#0A3D2A",
+  green: "#3DFF8A",
+  lime: "#A8FF6B",
+  mint: "#C8FFD4",
+  purple: "#7B8CFF",
+  lightPurple: "#A8B4FF",
   palePurple: "#C7CDE9",
+  amber: "#FF9F43",
+  amberMuted: "#FFC078",
 } as const;
 
 export type BrandColor = keyof typeof brand;
 
-/** Neutral surfaces from the brand guideline. */
+/** Neutral surfaces from the HUD guideline. */
 export const neutrals = {
-  background: "#FFFFFF",
-  surface: "#F7F7F7",
+  background: "#F2F4F7",
+  surface: "#E8ECF1",
   text: brand.navy,
 } as const;
 
@@ -27,21 +29,21 @@ export const appBg = {
   dark: brand.navy,
 } as const;
 
-/** Chart / Sankey / categorical series — blue dominant, green + purple secondary. */
+/** Chart / Sankey / categorical series — green + cyan + amber. */
 export const chart = {
-  1: brand.blue,
-  2: brand.sky,
-  3: brand.green,
-  4: brand.purple,
-  5: brand.lime,
+  1: "#0F8F4D",
+  2: "#1A7F99",
+  3: "#E07A1A",
+  4: "#4A56C7",
+  5: "#5A6573",
 } as const;
 
 export const chartDark = {
-  1: brand.sky,
-  2: brand.lightBlue,
-  3: brand.lime,
+  1: brand.green,
+  2: brand.sky,
+  3: brand.amber,
   4: brand.lightPurple,
-  5: brand.green,
+  5: brand.lime,
 } as const;
 
 /** Named accents for multi-series UI (flow, mode, rank). */
@@ -53,6 +55,7 @@ export const accentHex = {
   lightPurple: brand.lightPurple,
   mint: brand.mint,
   lime: brand.lime,
+  amber: brand.amber,
 } as const;
 
 export type AccentName = keyof typeof accentHex;

@@ -70,6 +70,8 @@
   --color-modon-purple: var(--modon-purple);
   --color-modon-light-purple: var(--modon-light-purple);
   --color-modon-pale-purple: var(--modon-pale-purple);
+  --color-hud-amber: var(--hud-amber);
+  --color-hud-amber-muted: var(--hud-amber-muted);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
